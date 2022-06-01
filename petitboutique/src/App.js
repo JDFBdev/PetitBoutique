@@ -1,10 +1,9 @@
 import React from 'react';
+import Home from './Components/Home/Home';
 
 function App() {
   return (
-    <div>
-      <h1>Petit Boutique</h1>
-    </div>
+    <Home/>
   );
 }
 

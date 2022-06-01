@@ -1,0 +1,71 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 15vh;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,.2);
+}
+
+.petitLogo{
+    width: 15rem;
+    height: 5rem;
+    cursor: pointer;
+}
+
+.form{
+    display: flex;
+    flex-direction: row;
+}
+
+.input{
+    width: 30rem;
+    border: none;
+    background-color: #E9E5DF;
+    height: 2rem;
+    border-radius: 2rem;
+    outline: none;
+
+    font-family: 'Quicksand';
+    text-indent: 1rem;
+}
+
+.input::placeholder{
+    color: #03989E;
+    font-size: 1rem;
+
+}
+
+.lupa{
+    width: 2.3rem;
+    height: 2.3rem;
+    margin-left: -2rem;
+    margin-top: .2rem;
+}
+
+.logos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    width: fit-content;
+}
+
+.logoContainer{
+
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #E9E5DF;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.logo{
+    width: 1.7rem;
+    height: 1.7rem;
+}
