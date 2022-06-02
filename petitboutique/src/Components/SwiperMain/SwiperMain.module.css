@@ -1,12 +1,11 @@
 .swiper {
-  margin-top: 5rem;
   width: 90%;
   max-width: 1200px;
-  height: fit-content;
+  height: 20rem;
   border-radius: 2rem;
 }
 
-.swiper-slide {
+.swiperSlide {
   text-align: center;
   font-size: 18px;
   background: rgb(195, 195, 195);
