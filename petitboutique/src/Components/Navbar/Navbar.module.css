@@ -3,14 +3,22 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 15vh;
+    height: 17vh;
     box-shadow: 0 5px 8px 0 rgba(0,0,0,.2);
 }
 
 .petitLogo{
-    width: 15rem;
+    width: 17rem;
     height: 5rem;
     cursor: pointer;
+}
+
+.search{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 .form{
@@ -19,10 +27,10 @@
 }
 
 .input{
-    width: 30rem;
+    width: 35rem;
     border: none;
     background-color: #E9E5DF;
-    height: 2rem;
+    height: 2.5rem;
     border-radius: 2rem;
     outline: none;
 
@@ -39,8 +47,79 @@
 .lupa{
     width: 2.3rem;
     height: 2.3rem;
-    margin-left: -2rem;
-    margin-top: .2rem;
+    margin-left: -2.3rem;
+    margin-top: .5rem;
+    cursor: pointer;
+}
+
+.categories{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.category{
+    font-family: 'Quicksand';
+    font-weight: 500;
+    font-size: 1rem;
+    color: white;
+    border: none;
+    padding: .3rem;
+    padding-left: .8rem;
+    padding-right: .8rem;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: background-color .5s;
+}
+
+.category:nth-child(1) {
+    background-color: #5EC1C4;
+}
+
+.category:nth-child(2) {
+    background-color: #A787E6;
+}
+
+.category:nth-child(3) {
+    background-color: #7ED957;
+}
+
+.category:nth-child(4) {
+    background-color: #5EC1C4;
+}
+
+.category:nth-child(5) {
+    background-color: #A787E6;
+}
+
+.category:nth-child(6) {
+    background-color: #7ED957;
+}
+
+.category:nth-child(1):hover{
+    background-color: #03989E;
+}
+
+.category:nth-child(2):hover{
+    background-color: #632ECB;
+}
+
+.category:nth-child(3):hover{
+    background-color: #4CC01B;
+}
+
+.category:nth-child(4):hover{
+    background-color: #03989E;
+}
+
+.category:nth-child(5):hover{
+    background-color: #632ECB;
+}
+
+.category:nth-child(6):hover{
+    background-color: #4CC01B;
 }
 
 .logos{
