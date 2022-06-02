@@ -1,4 +1,6 @@
 import React from "react";
+import Slide from "./Slide";
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -16,28 +18,23 @@ export default function SwiperMain() {
   return (
     <>
       <Swiper
-        spaceBetween={30}
+        spaceBetween={0}
         centeredSlides={true}
+        speed={1500}
         autoplay={{
-          delay: 2500,
+          delay: 4000,
           disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,
         }}
-        navigation={true}
+        navigation={false}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        <SwiperSlide><Slide selector={0}/></SwiperSlide>
+        <SwiperSlide><Slide selector={1}/></SwiperSlide>
+        <SwiperSlide><Slide selector={2}/></SwiperSlide>
       </Swiper>
     </>
   );
