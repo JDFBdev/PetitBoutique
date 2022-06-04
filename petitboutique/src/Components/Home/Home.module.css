@@ -66,3 +66,11 @@
     margin: 0;
     color: rgb(28, 28, 28);
 }
+
+.iframe{
+    width: 90%;
+    max-width: 1200px;
+    aspect-ratio: 16/8;
+    border: none;
+    border-radius: 2rem;
+}

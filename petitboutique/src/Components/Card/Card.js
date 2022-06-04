@@ -3,7 +3,7 @@ import s from './Card.module.css';
 import itemIMG from '../../img/itemIMG.png';
 
 export default function Card(){
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState('0');
 
     const handleColors = function(e){
         setSelected(e.target.id);

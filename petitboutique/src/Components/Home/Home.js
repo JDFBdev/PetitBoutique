@@ -20,7 +20,7 @@ export default function Home() {
         <div className={s.categories}>
           <div className={s.category} >
             <img className={s.categoryIMG} src={ellasIMG} alt='Ellas img'/>
-            <div className={s.mask} style={{backgroundImage: `url(${categoriaEllas})`}}/>
+            <div className={s.mask} style={{backgroundImage: `url(${categoriaEllas})`}}/>s
           </div>
           <div className={s.category} >
             <img className={s.categoryIMG} src={ellosIMG} alt='Ellos img'/>
@@ -37,6 +37,7 @@ export default function Home() {
         </div>
         <div className={s.moduleContainer}>
           <h2 className={s.moduleTitle}>Av. Maipú 825, Vicente López, Buenos Aires</h2>
+          <iframe title='Maps' src="https://maps.google.com/maps?q=-34.530231,-58.480009&output=svembed" className={s.iframe} allowFullScreen></iframe>
         </div>
         <Footer/>
       </div>
