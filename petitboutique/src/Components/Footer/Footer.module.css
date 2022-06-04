@@ -70,14 +70,6 @@
     margin:0;
 }
 
-@media (min-width: 2000px) {
-
-    .container{
-        padding: 2rem;
-    }
-
-}
-
 @media (max-width: 900px) {
 
     .container{
