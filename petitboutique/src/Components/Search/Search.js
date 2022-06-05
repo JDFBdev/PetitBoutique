@@ -14,11 +14,11 @@ export default function Search(){
                 <div className={s.data}>
                     <div className={s.filters}>
                         <select className={s.selector}>
+                            <option value='default'>Ordenar Por</option>
                             <option value="AZ">A-Z</option>
                             <option value="ZA">Z-A</option>
                             <option value="MAYOR">Mayor Precio</option>
-                            <option value="MENOR">Menor Precio</option>
-                            <option selected='default'>Ordenar Por</option>
+                            <option value="MENOR">Menor Precio</option>  
                         </select>
                         <button className={s.filterBtn}>Ellos</button>
                         <button className={s.filterBtn}>Ellas</button>

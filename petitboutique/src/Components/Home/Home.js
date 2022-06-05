@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Home.module.css';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import SwiperMain from '../SwiperMain/SwiperMain';
 import SwiperProducts from '../SwiperProducts/SwiperProducts';
@@ -12,21 +13,23 @@ import todxsIMG from '../../img/todxsIMG.jpg';
 import Footer from '../Footer/Footer';
 
 export default function Home() {
+  const Navigate = useNavigate();
+
   return (
     <div>
       <Navbar/>
       <div className={s.content}>
         <SwiperMain/>
         <div className={s.categories}>
-          <div className={s.category} >
+          <div className={s.category} onClick={()=>Navigate('/Search')} >
             <img className={s.categoryIMG} src={ellasIMG} alt='Ellas img'/>
-            <div className={s.mask} style={{backgroundImage: `url(${categoriaEllas})`}}/>s
+            <div className={s.mask} style={{backgroundImage: `url(${categoriaEllas})`}}/>
           </div>
-          <div className={s.category} >
+          <div className={s.category} onClick={()=>Navigate('/Search')}>
             <img className={s.categoryIMG} src={ellosIMG} alt='Ellos img'/>
             <div className={s.mask} style={{backgroundImage: `url(${categoriaEllos})`}}/>
           </div>
-          <div className={s.category} >
+          <div className={s.category} onClick={()=>Navigate('/Search')}>
             <img className={s.categoryIMG} src={todxsIMG} alt='Todos img'/>
             <div className={s.mask} style={{backgroundImage: `url(${categoriaTodxs})`}}/>
           </div>

@@ -1,13 +1,13 @@
 .container{
-    width: 260px;
-    height: 450px;
+    width: 220px;
+    height: 380px;
     border-radius: 1.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.115), 0 10px 20px rgba(0, 0, 0, 0.132);
     overflow: hidden;
 }
 
 .imgContainer{
-    height: 65%;
+    height: 60%;
     background-color: #E9E5DF;
     display: flex;
     flex-direction: row;
@@ -17,16 +17,16 @@
 
 .img{
     margin-top: 1.5rem;
-    width: 150px;
+    width: 110px;
     height: auto;
     object-fit: contain;
+    cursor: pointer;
 }
 
 .content{
     padding-top: 1rem;
     margin-top: -20%;
     border-radius: 1.5rem;
-    height: 195px;
     width: 100%;
     background-color: white;
     z-index: 10;
@@ -35,6 +35,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    gap: .6rem;
 }
 
 .data{
@@ -46,14 +47,25 @@
     gap: 1rem;
 }
 
+.titleContainer{
+    width: 100%;
+    height: 2.45rem;
+    overflow: hidden;
+}
+
 .title,
 .price,
 .talle{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-family: 'Quicksand';
     font-weight: 600;
     margin: 0;
     color: rgb(28, 28, 28);
+}
+
+.title{
+    line-height: 1.2rem;
+    cursor: pointer;
 }
 
 .priceContainer{
@@ -64,7 +76,7 @@
 }
 
 .price{
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
 }
 
@@ -73,23 +85,25 @@
     font-weight: 500;
     border: 1px solid black;
     border-radius: 1rem;
-    padding-top: .2rem;
-    padding-bottom: .2rem;
+    padding-top: .1rem;
+    padding-bottom: .1rem;
     padding-left: .5rem;
     padding-right: .5rem;
     cursor: pointer;
 }
 
 .colors{
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    gap: 1.2rem;
 }
 
 .color{
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     border: 2px solid rgb(217, 217, 217);
     border-radius: 50%;
     cursor: pointer;
@@ -98,7 +112,7 @@
 
 .btnCart{
     width: 100%;
-    height: 60px;
+    height: 50px;
     border: none;
     background-color: #7ED957;
     font-size: 1.2rem;
@@ -107,4 +121,6 @@
     margin: 0;
     color: rgb(255, 255, 255);
     cursor: pointer;
+
+
 }

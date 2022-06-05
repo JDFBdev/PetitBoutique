@@ -16,8 +16,8 @@ export default function SwiperProducts() {
   return (
     <>
       <Swiper
-        slidesPerView={4}
-        spaceBetween={-70}
+        slidesPerView={5}
+        spaceBetween={25}
         freeMode={true}
         pagination={{
           clickable: true,
