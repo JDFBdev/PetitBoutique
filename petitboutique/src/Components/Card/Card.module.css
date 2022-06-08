@@ -1,0 +1,126 @@
+.container{
+    width: 220px;
+    height: 380px;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.115), 0 10px 20px rgba(0, 0, 0, 0.132);
+    overflow: hidden;
+}
+
+.imgContainer{
+    height: 60%;
+    background-color: #E9E5DF;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.img{
+    margin-top: 1.5rem;
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.content{
+    padding-top: 1rem;
+    margin-top: -20%;
+    border-radius: 1.5rem;
+    width: 100%;
+    background-color: white;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: .6rem;
+}
+
+.data{
+    width: 85%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.titleContainer{
+    width: 100%;
+    height: 2.45rem;
+    overflow: hidden;
+}
+
+.title,
+.price,
+.talle{
+    font-size: 1.2rem;
+    font-family: 'Quicksand';
+    font-weight: 600;
+    margin: 0;
+    color: rgb(28, 28, 28);
+}
+
+.title{
+    line-height: 1.2rem;
+    cursor: pointer;
+}
+
+.priceContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.price{
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.talle{
+    font-size: 1rem;
+    font-weight: 500;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding-top: .1rem;
+    padding-bottom: .1rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    cursor: pointer;
+}
+
+.colors{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.color{
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(217, 217, 217);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+.btnCart{
+    width: 100%;
+    height: 50px;
+    border: none;
+    background-color: #7ED957;
+    font-size: 1.2rem;
+    font-family: 'Quicksand';
+    font-weight: 500;
+    margin: 0;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+
+
+}
