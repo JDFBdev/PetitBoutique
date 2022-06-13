@@ -1,4 +1,3 @@
-
 .content{
     margin-top: 4rem;
     display: flex;
@@ -6,6 +5,8 @@
     justify-content: center;
     align-items: center;
     gap: 3rem;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .categories{
@@ -13,13 +14,16 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 1200px;
+    width:  90%;
+    max-width: 1200px;
     height: fit-content;
+    gap: .5rem;
 }
 
 .category{
-    height: 360px;
-    width: 360px;
+    position: relative;
+    width: 30%;
+    aspect-ratio: 1/1;
     overflow: hidden;
     border-radius: 2rem;
     cursor: pointer;
@@ -31,20 +35,18 @@
 
 .categoryIMG{
     position: absolute;
-    width: 280px;
-    height: 280px;
+    width: 100%;
+    aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 2rem;
-    margin-top: 40px;
-    margin-left: 40px;
     transition: transform .5s;
 }
 
 .mask{
-    position: absolute;
+    position: relative;
     background-size: cover;
-    height: 360px;
-    width: 360px;
+    width: 100%;
+    aspect-ratio: 1/1;
     border-radius: 2rem;
 }
 
@@ -57,14 +59,16 @@
     width: 90%;
     max-width: 1200px;
     margin-bottom: 2rem;
+    
 }
 
 .moduleTitle{
-    font-size: 2.3rem;
+    font-size: clamp(1.5rem, 3.2vw, 2.3rem);
     font-family: 'Quicksand';
     font-weight: 600;
     margin: 0;
     color: rgb(28, 28, 28);
+    text-align: center;
 }
 
 .iframe{
@@ -73,4 +77,40 @@
     aspect-ratio: 16/8;
     border: none;
     border-radius: 2rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.115), 0 5px 5px rgba(0, 0, 0, 0.132);
+}
+
+@media (max-width: 650px) {
+
+    .content{
+        margin-top: 2rem;
+        gap: 2rem;
+    }
+
+    .category{
+        border-radius: 1rem;
+    }
+
+    .mask{
+        border-radius: 1rem;
+    }
+
+    .iframe{
+        border-radius: 1rem;
+    }
+}
+
+@media (max-width: 530px) {
+
+    .categories{
+        gap: 1rem;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .content{
+        gap: 1rem;
+    }
 }

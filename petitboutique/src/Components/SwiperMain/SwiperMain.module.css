@@ -3,6 +3,7 @@
   max-width: 1200px;
   height: 20rem;
   border-radius: 2rem;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.115), 0 5px 5px rgba(0, 0, 0, 0.132);
 }
 
 .swiperSlide {
@@ -24,6 +25,30 @@
   -webkit-align-items: center;
   align-items: center;
 
-  height: 20rem;
+}
+
+@media (max-width: 850px) {
+
+  .swiper{
+    height: 15rem;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .swiper{
+    height: 12rem;
+    border-radius: 1rem;
+  }
+
+}
+
+@media (max-width: 450px) {
+
+  .swiper{
+    height: 10rem;
+  }
 
 }

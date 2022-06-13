@@ -6,8 +6,8 @@
 .div{
     background-size: cover;
     position: absolute;
-    height: 320px;
-    width: 500px;
+    height: 100%;
+    aspect-ratio: 100/64;
     z-index: 1;
 
     display: flex;
@@ -33,12 +33,13 @@
     margin: 0;
     color: white;
     text-align: left;
+    line-height: 2rem;
 }
 
 .text{
     font-size: 1.3rem;
     font-weight: 500;
-   
+    line-height: 1.5rem;
 }
 
 .img{
@@ -47,4 +48,96 @@
     width: 80%;
     display: block;
     object-fit: cover;
+}
+
+@media (max-width: 950px) {
+
+    .img{
+        margin-left: 15rem;
+        margin-top: -3rem;
+        width: 90%;
+    }
+
+}
+
+@media (max-width: 850px) {
+
+    .data{
+        width: 50%;
+    }
+    
+    .img{
+        margin-left: 14rem;
+    }
+
+    .title{
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+    }
+
+    .text{
+        font-size: 1rem;
+        line-height: 1.2rem;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .img{
+        margin-left: 10rem;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .data{
+        gap: .5rem;
+    }
+
+    .img{
+        margin-left: 8rem;
+    }
+
+    .title{
+        font-size: 1.2rem;
+        line-height: 1.3rem;
+    }
+
+    .text{
+        font-size: .8rem;
+        line-height: .9rem;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .img{
+        margin-top: -3rem;
+        width: 120%;
+        margin-left: 2rem;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .data{
+        width: 50%;
+        margin-left: 1rem;
+    }
+
+    .img{
+        margin-top: -3rem;
+        margin-left: 3rem;
+    }
+
+    .title{
+        font-size: 1.2rem;
+        line-height: 1rem;
+    }
+
+    .text{
+        font-size: .8rem;
+        line-height: .6rem;
+    }
 }
