@@ -1,5 +1,5 @@
 .container{
-    height: 35vh;
+    height: 370px;
     width: 100%;
     background-color: #E9E5DF;
     display: flex;
@@ -13,7 +13,8 @@
 
 .petit{
     width: 17rem;
-    height: 5rem;
+    aspect-ratio: 16/5;
+    cursor: pointer;
 }
 
 .logos{
@@ -50,7 +51,7 @@
 }
 
 .p{
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem , 4vw ,1.4rem);
     font-family: 'Quicksand';
     font-weight: 600;
     margin: 0;
@@ -75,6 +76,14 @@
     .container{
         clip-path: ellipse(80% 100% at 50% 100%);
     }
+
+    .container{
+        height: 330px;
+    }
+
+    .petit{
+        width: 14rem;
+    }
 }
 
 @media (max-width: 470px) {
@@ -82,5 +91,19 @@
     .container{
         padding-top: 3rem;
         clip-path: ellipse(100% 100% at 50% 100%);
+    }
+
+    .petit{
+        width: 13rem;
+    }
+
+    .logoContainer{
+        height: 2.8rem;
+        width: 2.8rem;
+    }
+
+    .logo{
+        width: 1.8rem;
+        height: 1.8rem;
     }
 }

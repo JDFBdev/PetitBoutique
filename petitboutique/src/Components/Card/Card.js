@@ -1,35 +1,56 @@
 import React, { useState } from "react";
 import s from './Card.module.css';
-import itemIMG from '../../img/itemIMG.png';
 
-export default function Card(){
-    const [selected, setSelected] = useState('0');
+export default function Card({product, disableCart}){
+    const [selected, setSelected] = useState(0);
 
     const handleColors = function(e){
-        setSelected(e.target.id);
+        setSelected(Number(e.target.id));
     }
 
     return(
         <div className={s.container}>
             <div className={s.imgContainer}>
-                <img className={s.img} src={itemIMG} alt='item img'/>
+            {
+                product.imagen ?
+                <img className={s.img} src={product.imagen[selected]} alt='Sin imagen'/> :
+                null
+            }
             </div>
             <div className={s.content}>
                 <div className={s.data}>
                     <div className={s.titleContainer}>
-                        <h4 className={s.title}>Leggins Pijama Unicornios</h4>
+                    {
+                        product.nombre ? 
+                        <h4 className={s.title}>{product.nombre}</h4>:
+                        <h4 className={s.title}> </h4>
+                    }
                     </div>  
                     <div className={s.priceContainer}>
-                        <p className={s.price}>$2350</p>
-                        <div className={s.talle}>
-                            Talle 12
-                        </div>
+                    {
+                        product.precio ?
+                        <p className={s.price}>${product.precio}</p>:
+                        <p className={s.price}>$0</p>
+                    }
+                    <select className={s.talle}>
+                        <option value='default' >Talle&nbsp;&nbsp;&nbsp;</option>
+                        {
+                            product.talle[0] &&
+                            product.talle.map((o)=>{
+                                return <option value={o} key={o} >Talle {o}</option>
+                            })
+                        }
+                    </select>
                     </div>
                     {/* If colors > 4, justify-content: space-between, gap: .5rem */}
-                    <div className={s.colors}>
-                        <div id='0' className={s.color} style={{backgroundColor: '#EFB693', transform: (selected === '0') && 'scale(1.4)'}} onClick={handleColors}/>
-                        <div id='1' className={s.color} style={{backgroundColor: '#433F56', transform: (selected === '1') && 'scale(1.4)'}} onClick={handleColors}/>
-                        <div id='2' className={s.color} style={{backgroundColor: '#EFD8EE', transform: (selected === '2') && 'scale(1.4)'}} onClick={handleColors}/>
+                    <div className={s.colors} style={{justifyContent: product.color.length > 4 && 'space-between', gap: product.color.length > 4 && '.5rem' }}>
+                    {
+                        product.color[0] ?
+                        product.color.map((c,i)=>{
+                            return  <div id={i} className={s.color} style={{backgroundColor: c, transform: (selected === i) && 'scale(1.4)'}} onClick={handleColors}/>
+                        }): 
+                        <div id={0} className={s.color} style={{backgroundColor: '#ffffff', transform: (selected === 0) && 'scale(1.4)'}} onClick={handleColors}/>
+                    }
                     </div>
                 </div>
                 <button className={s.btnCart}>Agregar al carrito</button>

@@ -1,0 +1,36 @@
+.container{
+    width: 300px;
+    height: 100px;
+    border-radius: .4rem;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.115), 0 5px 5px rgba(0, 0, 0, 0.132);
+}
+
+.img{
+    height: 80px;
+    width: auto;
+    max-width: 80px;
+    object-fit: contain;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.titleContainer{
+    height: 70%;
+    max-width: 170px;
+    overflow: hidden;
+}
+
+.title{
+    font-size: 1rem;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    margin: 0;
+    color: rgb(28, 28, 28);
+}
+
