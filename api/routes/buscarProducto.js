@@ -2,7 +2,6 @@ const express = require('express');
 const Productos = require('../models/productos');
 const router = express.Router();
 
-// Get all tricks in the Tricks database
 router.get('/:id', async (req, res) => {
     let {id} = req.params
     try {
