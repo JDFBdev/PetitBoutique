@@ -3,6 +3,7 @@ import Home from './Components/Home/Home';
 import Search from './Components/Search/Search';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import Admin from './Components/Admin/Admin';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/Search" element={<Search />}/>
+          <Route path="/Admin" element={<Admin/>}/>
         </Routes>
       </BrowserRouter>
       </>
