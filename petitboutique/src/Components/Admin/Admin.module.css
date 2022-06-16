@@ -92,7 +92,8 @@
 .categoryTextClose,
 .talleText,
 .talleTextClose,
-.btnAgregarColor{
+.btnAgregarColor,
+.btnAgregarColorError{
     font-size: 1rem;
     font-family: 'Quicksand';
     font-weight: 500;
@@ -166,11 +167,12 @@
 }
 
 .colorSelector{
+    height: 150px !important;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap:2rem;
+    gap:1rem;
 }
 
 .colorInput{
@@ -180,12 +182,19 @@
     padding: 0px;
 }
 
-.btnAgregarColor{
+.btnAgregarColor,
+.btnAgregarColorError{
     border: none;
     color: black;
     border-radius: .4rem;
     cursor: pointer;
     background-color: #41745900;
+    white-space: nowrap;
+}
+
+.btnAgregarColorError{
+    color: rgb(135, 135, 135);
+    cursor: not-allowed;
 }
 
 .inputContainer{
