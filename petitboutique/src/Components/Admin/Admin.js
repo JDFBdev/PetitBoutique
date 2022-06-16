@@ -84,9 +84,9 @@ export default function Admin(){
         openLoading();
 
         if (!input.files[0]) return;
-            input.files.forEach(async f=>{
+            input.files.forEach(async (f)=>{
                 const imageRef = ref(storage, `images/${f.name}`);
-                await uploadBytes(imageRef, f).then((snapshot) => {
+                uploadBytes(imageRef, f).then((snapshot) => {
                 getDownloadURL(snapshot.ref).then((url) => {
                     setUrl((prev)=>([...prev, url]));
                 });
@@ -95,7 +95,14 @@ export default function Admin(){
     }
 
     useEffect(()=>{  // Si se guardo la imagen de firebase, vamos a handleSubmit
-        if ( url[0] && url.length === input.files.length ) hanldeSubmit();
+        if ( url[0] && url.length === input.files.length ) console.log({
+            nombre: input.title,
+            imagen: url,
+            precio: input.precio,
+            categoria: input.categories,
+            color: input.colores,
+            talle: input.talles
+        });
     },[url]);
 
     const hanldeSubmit = async function(){  // Posteamos el producto
@@ -322,7 +329,7 @@ export default function Admin(){
                             <div className={s.fileWrapper}>
                                 <input className={s.file} type='file' id='file' onChange={handleSelectedFile} />
                             </div>
-                            
+
                             <button className={s.btnDelete} onClick={(e)=>{e.preventDefault(); openDelete();}}>Eliminar Producto</button>
                             <button className={s.btnSubmit} type='submit' onClick={handleMofidicar}>Modificar Producto</button>
                         </form>
