@@ -10,14 +10,15 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../Firebase/Firebase";
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { GetColorName } from 'hex-color-to-color-name';
+import { CompactPicker } from 'react-color';
 
-const selector = Array.from(Array(20).keys());
-selector.shift();
+const selector = ['B0-6', 'B6-12', 'B12-18', 'B18-24',2,4,6,8,10,12,14,16];
 
 export default function Admin(){
     const [input, setInput] = useState({title: '', categories: [], talles: [], files: [], colores: [], precio: ''})
-    const [url, setUrl] = useState('');
-    const [color, setColor] = useState('');
+    const [url, setUrl] = useState([]);
+    const [color, setColor] = useState({id: '', name: 'Black'});
     const [modifyUrl, setModifyUrl] = useState('');
     const [selected, setSelected] = useState({nombre: '', categoria: '', imagen: '', id: -1, file:''});
     const [selectedImagePreview, setSelectedImagePreview] = useState(null);
@@ -49,7 +50,7 @@ export default function Admin(){
 
     const handleColor = function(e){
         e.preventDefault();
-        setInput(prevInput => ({...prevInput, colores: [...prevInput['colores'], color]}));
+        setInput(prevInput => ({...prevInput, colores: [...prevInput['colores'], color.id]}));
     }
 
     const handleCloseCategory = function(e){
@@ -82,25 +83,30 @@ export default function Admin(){
         e.preventDefault();
         openLoading();
 
-        if (input.file === '') return;
-        const imageRef = ref(storage, `images/${input.file.name}`);
-        uploadBytes(imageRef, input.file).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-            setUrl(url);
-        });
-        });
+        if (!input.files[0]) return;
+            input.files.forEach(async f=>{
+                const imageRef = ref(storage, `images/${f.name}`);
+                await uploadBytes(imageRef, f).then((snapshot) => {
+                getDownloadURL(snapshot.ref).then((url) => {
+                    setUrl((prev)=>([...prev, url]));
+                });
+            });
+        })
     }
 
     useEffect(()=>{  // Si se guardo la imagen de firebase, vamos a handleSubmit
-        if ( url && url !== '' ) hanldeSubmit();
-    },[url])
+        if ( url[0] && url.length === input.files.length ) hanldeSubmit();
+    },[url]);
 
     const hanldeSubmit = async function(){  // Posteamos el producto
 
         let promise = await axios.post(`http://localhost:3001/crearProducto`,{
             nombre: input.title,
             imagen: url,
-            categoria: input.category
+            precio: input.precio,
+            categoria: input.categories,
+            color: input.colores,
+            talle: input.talles
         })
         let response = promise.data;
         if (!response.success){
@@ -233,7 +239,7 @@ export default function Admin(){
                         {
                             input.talles?.map((t)=>{
                                 return <div className={s.talle} key={t}>
-                                    <p className={s.talleText}>Talle {t}</p>
+                                    <p className={s.talleText}>{t}</p>
                                     <p className={s.talleTextClose} onClick={()=>handleCloseTalle(t)}>X</p>
                                 </div>
                             })
@@ -243,16 +249,25 @@ export default function Admin(){
 
                     <div className={s.colores}>
                         <div className={s.colorSelector}>
-                            <input className={s.colorInput}  id='colores' type='color' placeholder="Seleccionar Colores" onChange={(e)=>{setColor(e.target.value)}}/>
-                            <button className={s.btnAgregarColor} onClick={handleColor}>Agregar Color</button>
+                            <CompactPicker id='colores' type='color' placeholder="Seleccionar Colores" onChange={(e)=>{setColor({id: e.hex, name: GetColorName(e.hex)})}}/>
+                            {
+                                input.colores.length === input.files.length && color.id !== '' && input.colores.length < 6 ?
+                                <button className={s.btnAgregarColor} onClick={handleColor}>Agregar {color.name}</button>:
+                                <button className={s.btnAgregarColorError} onClick={(e)=>{e.preventDefault();}}>Agregar {color.name}</button>
+                            }
+                            
                         </div>
                         {
-                            input.colores?.map((c)=>{
+                            input.colores?.map((c,i)=>{
                                 return (
-                                <div className={s.color} style={{backgroundColor: c}}>
-                                    <div className={s.fileWrapper}>
-                                        <input className={s.file} id='file' type='file' onChange={handleFile}/>
+                                <div key={i}>
+                                    { !input.files[i] &&
+                                    <div className={s.color} style={{backgroundColor: c}} >
+                                        <div className={s.fileWrapper}>
+                                            <input className={s.file} id='file' type='file' onChange={handleFile}/>
+                                        </div>
                                     </div>
+                                    }
                                 </div>
                                 )
                             })

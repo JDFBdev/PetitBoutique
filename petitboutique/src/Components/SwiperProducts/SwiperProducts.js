@@ -31,7 +31,7 @@ export default function SwiperProducts() {
         { 
           products ?
           products?.map((p, i)=>{
-            return <SwiperSlide key={i} className={s.swiperSlide}><Card product={p}/></SwiperSlide>
+            return <SwiperSlide key={i} className={s.swiperSlide}><Card /></SwiperSlide>
           }) :
           skeletonCards.map((p, i)=>{
             return (
