@@ -33,12 +33,12 @@ export default function Navbar() {
                     <img className={s.lupa} src={Lupa} alt='Lupa' onClick={()=> Navigate('/Search/Populares')}/>
                 </form>
                 <div className={s.categories}>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Buzos</button>
                     <button className={s.category} onClick={()=> Navigate('/Search')}>Remeras</button>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Leggins</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search')}>Pantalones</button>
                     <button className={s.category} onClick={()=> Navigate('/Search')}>Vestidos</button>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Gorritos</button>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Zapatilas</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search')}>Accesorios</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search')}>Abrigos</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search')}>Bebes</button>
                 </div>
             </div>
             <div className={s.logos}>

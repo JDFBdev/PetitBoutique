@@ -19,6 +19,22 @@
     height: fit-content;
     gap: .5rem;
 }
+.categoryContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.categoryLabel{
+    font-size:  1.2rem;
+    font-family: 'Quicksand';
+    font-weight: 600;
+    margin: 0;
+    color: rgb(28, 28, 28);
+    text-align: center;
+}
 
 .category{
     position: relative;
@@ -33,7 +49,8 @@
     transform: scale(1.1);
 }
 
-.categoryIMG{
+.categoryIMG,
+.IMGGenero{
     position: absolute;
     width: 100%;
     aspect-ratio: 1/1;
@@ -42,13 +59,61 @@
     transition: transform .5s;
 }
 
-.mask{
+.mask,
+.maskGenero{
     position: relative;
     background-size: cover;
     width: 100%;
     aspect-ratio: 1/1;
     border-radius: 2rem;
 }
+
+.genero{
+    width: 100%;
+    height: 200px;
+    background-color: aqua;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.genero:nth-child(1) {
+    background-color: #5EC1C4;
+}
+
+.genero:nth-child(2) {
+    background-color: #A787E6;
+}
+
+.genero:nth-child(3) {
+    background-color: #7ED957;
+}
+
+.IMGGenero{
+    height: 200px;
+    width: auto;
+}
+
+.maskGenero{
+    height: 200px;
+    width: auto;
+}
+
+.generoTitleContainer{
+    width: 65%;
+}
+
+.generoTitle{
+  font-size:  clamp(1.8rem, 8vw, 4rem);
+  font-family: 'Quicksand';
+  font-weight: 600;
+  margin: 0;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
 
 .moduleContainer{
     display: flex;
@@ -80,6 +145,21 @@
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.115), 0 5px 5px rgba(0, 0, 0, 0.132);
 }
 
+@media (max-width: 1200px) {
+    .categories{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1.7rem;
+        width:  90%;
+        max-width: 1200px;
+        height: fit-content;
+    }
+
+    .category{
+        width: 100%;
+    }
+}
+
 @media (max-width: 650px) {
 
     .content{
@@ -98,12 +178,30 @@
     .iframe{
         border-radius: 1rem;
     }
+
+    .genero,
+    .IMGGenero,
+    .maskGenero{
+        height: 150px;
+    }
+
+    .genero{
+        border-radius: 1rem;
+    }
+
+
 }
 
 @media (max-width: 530px) {
 
     .categories{
         gap: 1rem;
+    }
+
+    .genero,
+    .IMGGenero,
+    .maskGenero{
+        height: 120px;
     }
 
 }
@@ -113,4 +211,11 @@
     .content{
         gap: 1rem;
     }
+
+    .genero,
+    .IMGGenero,
+    .maskGenero{
+        height: 100px;
+    }
+    
 }
