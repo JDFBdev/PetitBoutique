@@ -16,15 +16,16 @@ import { CompactPicker } from 'react-color';
 const selector = ['B0-6', 'B6-12', 'B12-18', 'B18-24',2,4,6,8,10,12,14,16];
 
 export default function Admin(){
-    const [input, setInput] = useState({title: '', categories: [], talles: [], files: [], colores: [], precio: ''})
+    const [input, setInput] = useState({title: '', categories: [], talles: [], files: [], colores: [], precio: ''});
     const [url, setUrl] = useState([]);
     const [color, setColor] = useState({id: '', name: 'Black'});
     const [modifyUrl, setModifyUrl] = useState('');
-    const [selected, setSelected] = useState({nombre: '', categoria: '', imagen: '', id: -1, file:''});
-    const [selectedImagePreview, setSelectedImagePreview] = useState(null);
+    const [selected, setSelected] = useState({nombre: '', categoria: [], talle: [], imagen: [], color: [], precio: '', id: -1});
+    const [selectedImagePreview, setSelectedImagePreview] = useState([]);
     const [imagePreview, setImagePreview] = useState([]);
     const [products, setProducts] = useState([]);
     const [skeletonCards] = useState([1,2,3,4,5,6,7,8]);
+
     const [Modal, open] = useModal('root', { preventScroll: true, closeOnOverlayClick: true});
     const [ModalDelete, openDelete, closeDelete] = useModal('root', { preventScroll: true, closeOnOverlayClick: true});
     const [ModalLoading, openLoading, closeLoading] = useModal('root', { preventScroll: true, closeOnOverlayClick: false});
@@ -45,7 +46,6 @@ export default function Admin(){
         } else if (!input[e.target.id].includes(e.target.value) && e.target.value !== 'default'){
             setInput(prevInput => ({...prevInput, [e.target.id]: [...prevInput[e.target.id], e.target.value]}));
         }
-        
     }
 
     const handleColor = function(e){
@@ -59,8 +59,28 @@ export default function Admin(){
         })}));
     }
 
+    const handleCloseCategorySelected = function(e){
+        setSelected((prev)=>({...prev, categoria: prev.categoria.filter(function(c) { 
+            return c !== e
+        })}));
+    }
+
+    const handleInputSelected = function(e){  // Estado de inputs
+        if (e.target.id === 'nombre' || e.target.id === 'precio'){
+            setSelected(prevInput => ({...prevInput, [e.target.id]:e.target.value}));
+        } else if (!selected[e.target.id].includes(e.target.value) && e.target.value !== 'default'){
+            setSelected(prevInput => ({...prevInput, [e.target.id]: [...prevInput[e.target.id], e.target.value]}));
+        }
+    }
+
     const handleCloseTalle = function(e){
         setInput((prev)=>({...prev, talles: prev.talles.filter(function(c) { 
+            return c !== e
+        })}));
+    }
+
+    const handleCloseTalleSelected = function(e){
+        setSelected((prev)=>({...prev, talle: prev.talle.filter(function(c) { 
             return c !== e
         })}));
     }
@@ -95,18 +115,20 @@ export default function Admin(){
     }
 
     useEffect(()=>{  // Si se guardo la imagen de firebase, vamos a handleSubmit
-        if ( url[0] && url.length === input.files.length ) console.log({
-            nombre: input.title,
-            imagen: url,
-            precio: input.precio,
-            categoria: input.categories,
-            color: input.colores,
-            talle: input.talles
-        });
+        if ( url[0] && url.length === input.files.length ){
+            let orden = [];
+            input.files.forEach(f=>{
+                url.forEach(u=>{
+                    if (u.includes(f.name)){
+                        orden.push(u);
+                    }
+                })
+            })
+            hanldeSubmit(orden);
+        }
     },[url]);
 
-    const hanldeSubmit = async function(){  // Posteamos el producto
-
+    const hanldeSubmit = async function(url){  // Posteamos el producto
         let promise = await axios.post(`http://localhost:3001/crearProducto`,{
             nombre: input.title,
             imagen: url,
@@ -132,32 +154,21 @@ export default function Admin(){
         
     }
 
-    const handleMofidicar = async function(e){  // Si no hay imagen que modificar, posteamos el cambio, si hay, la subimos a firebase
+    useEffect(()=>{  // Si se subio la imagen a modificar a firebase, vamos al submit
+        if ( modifyUrl && modifyUrl !== '' ) handleSubmitModificar(true);
+    },[modifyUrl])
+
+    const handleSubmitModificar = async function(e){  // Posteamos el cambio, con imagen anterior o con imagen nueva
         e.preventDefault();
         openLoading();
 
-        if(selected.file === ''){
-            hanldeSubmitModificar(false);
-        }else{
-            const imageRef = ref(storage, `images/${selected.file.name}`);
-            uploadBytes(imageRef, selected.file).then((snapshot) => {
-            getDownloadURL(snapshot.ref).then((url) => {
-                setModifyUrl(url);
-            });
-            });
-        }
-    }
-
-    useEffect(()=>{  // Si se subio la imagen a modificar a firebase, vamos al submit
-        if ( modifyUrl && modifyUrl !== '' ) hanldeSubmitModificar(true);
-    },[modifyUrl])
-
-    const hanldeSubmitModificar = async function(image){  // Posteamos el cambio, con imagen anterior o con imagen nueva
-
         let promise = await axios.post(`http://localhost:3001/editarProducto`,{
             nombre: selected.nombre,
-            imagen: image ? modifyUrl : selected.imagen,
+            imagen: selected.imagen,
+            precio: selected.precio,
             categoria: selected.categoria,
+            color: selected.color,
+            talle: selected.talle,
             id: selected.id
         })
         let response = promise.data;
@@ -202,6 +213,7 @@ export default function Admin(){
             <h1 className={s.moduleTitle}>Crear Producto</h1>
             <div className={s.create}>
                 <form className={s.form} onSubmit={handleCreate}>
+
                     <div className={s.inputContainer}>
                         <input className={s.input} id='title' type='text' placeholder="Titulo..." onChange={handleInput}/>
                     </div>
@@ -233,6 +245,7 @@ export default function Admin(){
                         }
                         </div>
                     </div>
+                    
                     <div className={s.talles}>
                         <select className={s.input} id='talles' onChange={handleInput}>
                             <option value='default'>Seleccionar Talles</option>
@@ -317,23 +330,64 @@ export default function Admin(){
                     <div className={s.create}>
                         <form className={s.formModal}>
                             <h3 className={s.modalTitle}>Modificar Producto</h3>
-                            <input className={s.input} value={selected.nombre} type='text' placeholder="Titulo..." onChange={(e)=>setSelected((prev)=>({...prev, nombre: e.target.value}))}/>
-                            <select className={s.input} value={selected.categoria} onChange={(e)=>setSelected((prev)=>({...prev, categoria: e.target.value}))}>
-                                <option value='Escritura'>Escritura</option>
-                                <option value='Oficina'>Oficina</option>
-                                <option value='Resmas'>Resmas</option>
-                                <option value='Escolar'>Escolar</option>
-                                <option value='Computacion'>Computacion</option>
-                                <option value='Mochilas'>Mochilas</option>
-                            </select>
-                            <div className={s.fileWrapper}>
-                                <input className={s.file} type='file' id='file' onChange={handleSelectedFile} />
+
+                            <div className={s.inputContainer}>
+                                <input className={s.input} value={selected.nombre} id='nombre' type='text' placeholder="Titulo..." onChange={handleInputSelected}/>
+                            </div>
+                            <div className={s.inputContainer}>
+                                <input className={s.input} value={selected.precio} id='precio' type='number' placeholder="Precio..." onChange={handleInputSelected}/>
                             </div>
 
+                            <div className={s.categories}>
+                                <select className={s.input} id='categoria' onChange={handleInputSelected}>
+                                    <option value='default'>Seleccionar Categoria</option>
+                                    <option value='Pantalones'>Pantalones</option>
+                                    <option value='Remeras'>Remeras</option>
+                                    <option value='Bebes'>Bebes</option>
+                                    <option value='Vestidos'>Vestidos</option>
+                                    <option value='Accesorios'>Accesorios</option>
+                                    <option value='Abrigos'>Abrigos</option>
+                                    <option value='Nenes'>Nenes</option>
+                                    <option value='Nenas'>Nenas</option>
+                                    <option value='Unisex'>Unisex</option>
+                                </select>
+                                <div className={s.categoriesContainer}>
+                                {
+                                    selected.categoria?.map((c)=>{
+                                        return (
+                                            <div className={s.category} key={c}>
+                                                <p className={s.categoryText}>{c}</p>
+                                                <p className={s.categoryTextClose} onClick={()=>handleCloseCategorySelected(c)}>X</p>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                </div>
+                            </div>
+                            <div className={s.talles}>
+                                <select className={s.input} id='talle' onChange={handleInputSelected}>
+                                    <option value='default'>Seleccionar Talles</option>
+                                    {
+                                        selector.map((o)=>{
+                                            return <option value={o} key={o} >{o}</option>
+                                        })
+                                    }
+                                </select>
+                                <div className={s.tallesContainer}>
+                                {
+                                    selected.talle?.map((t)=>{
+                                        return <div className={s.talle} key={t}>
+                                            <p className={s.talleText}>{t}</p>
+                                            <p className={s.talleTextClose} onClick={()=>handleCloseTalleSelected(t)}>X</p>
+                                        </div>
+                                    })
+                                }
+                                </div>
+                            </div>
                             <button className={s.btnDelete} onClick={(e)=>{e.preventDefault(); openDelete();}}>Eliminar Producto</button>
-                            <button className={s.btnSubmit} type='submit' onClick={handleMofidicar}>Modificar Producto</button>
+                            <button className={s.btnSubmit} type='submit' onClick={handleSubmitModificar}>Modificar Producto</button>
                         </form>
-                        <Card product={{...selected, imagen: selectedImagePreview ? selectedImagePreview : selected.imagen}} disableCart={true}/>
+                        <Card product={{...selected, imagen: selectedImagePreview[0] ? selectedImagePreview : selected.imagen}} disableCart={true}/>
                     </div>
                 </Transition>
             </Modal>

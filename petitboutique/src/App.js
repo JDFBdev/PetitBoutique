@@ -4,6 +4,7 @@ import Search from './Components/Search/Search';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Admin from './Components/Admin/Admin';
+import NotFound from './Components/NotFound/NotFound';
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}/>
-          <Route path="/Search" element={<Search />}/>
+          <Route path="/Search/:param" element={<Search />}/>
           <Route path="/Admin" element={<Admin/>}/>
+          <Route path="/*" element={<NotFound/>} />
         </Routes>
       </BrowserRouter>
       </>

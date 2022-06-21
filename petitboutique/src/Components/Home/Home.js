@@ -7,9 +7,18 @@ import SwiperProducts from '../SwiperProducts/SwiperProducts';
 import categoriaEllas from '../../img/categoriaEllas.png';
 import categoriaEllos from '../../img/categoriaEllos.png';
 import categoriaTodxs from '../../img/categoriaTodxs.png';
+import categoriaBlue from '../../img/categoriaBlue.png';
+import categoriaGreen from '../../img/categoriaGreen.png';
+import categoriaPurple from '../../img/categoriaPurple.png';
 import ellasIMG from '../../img/ellasIMG.jpg';
 import ellosIMG from '../../img/ellosIMG.jpg';
 import todxsIMG from '../../img/todxsIMG.jpg';
+import remeras from '../../img/remeras.png';
+import pantalones from '../../img/pantalones.png';
+import vestidos from '../../img/vestidos.png';
+import accesorios from '../../img/accesorios.png';
+import abrigos from '../../img/abrigos.png';
+import bebes from '../../img/bebes.png';
 import Footer from '../Footer/Footer';
 import { useMediaQuery } from 'react-responsive';
 
@@ -25,59 +34,59 @@ export default function Home() {
         <div className={s.categories}>
           { !isTabletOrMobile ? 
             <>
-              <div className={s.category} onClick={()=>Navigate('/Search')} >
+              <div className={s.category} onClick={()=>Navigate('/Search/Ellas')} >
                 <img className={s.categoryIMG} src={ellasIMG} alt='Ellas img'/>
                 <div className={s.mask} style={{backgroundImage: `url(${categoriaEllas})`}}/>
               </div>
-              <div className={s.category} onClick={()=>Navigate('/Search')}>
+              <div className={s.category} onClick={()=>Navigate('/Search/Ellos')}>
                 <img className={s.categoryIMG} src={ellosIMG} alt='Ellos img'/>
                 <div className={s.mask} style={{backgroundImage: `url(${categoriaEllos})`}}/>
               </div>
-              <div className={s.category} onClick={()=>Navigate('/Search')}>
+              <div className={s.category} onClick={()=>Navigate('/Search/Todxs')}>
                 <img className={s.categoryIMG} src={todxsIMG} alt='Todos img'/>
                 <div className={s.mask} style={{backgroundImage: `url(${categoriaTodxs})`}}/>
               </div>
             </> : 
             <>
             <div className={s.categoryContainer}>
-              <div className={s.category} onClick={()=>Navigate('/Search')} >
-                <img className={s.categoryIMG} src={ellasIMG} alt='Ellas img'/>
-                <div className={s.mask} style={{backgroundImage: `url(${categoriaEllas})`}}/>
+              <div className={s.category} onClick={()=>Navigate('/Search/Remeras')} >
+                <img className={s.categoryIMG} src={remeras} alt='Remeras'/>
+                <div className={s.mask} style={{backgroundImage: `url(${categoriaBlue})`}}/>
               </div>
               <p className={s.categoryLabel}>Remeras</p>
             </div>
             <div className={s.categoryContainer}>
-              <div className={s.category} onClick={()=>Navigate('/Search')} >
-                <img className={s.categoryIMG} src={ellosIMG} alt='Ellos img'/>
-                <div className={s.mask} style={{backgroundImage: `url(${categoriaEllos})`}}/>
+              <div className={s.category} onClick={()=>Navigate('/Search/Pantalones')} >
+                <img className={s.categoryIMG} src={pantalones} alt='Pantalones'/>
+                <div className={s.mask} style={{backgroundImage: `url(${categoriaPurple})`}}/>
               </div>
               <p className={s.categoryLabel}>Pantalones</p>
             </div>
             <div className={s.categoryContainer}>
-              <div className={s.category} onClick={()=>Navigate('/Search')} >
-                <img className={s.categoryIMG} src={todxsIMG} alt='Todos img'/>
-                <div className={s.mask} style={{backgroundImage: `url(${categoriaTodxs})`}}/>
+              <div className={s.category} onClick={()=>Navigate('/Search/Vestidos')} >
+                <img className={s.categoryIMG} src={vestidos} alt='Vestidos'/>
+                <div className={s.mask} style={{backgroundImage: `url(${categoriaGreen})`}}/>
               </div>
               <p className={s.categoryLabel}>Vestidos</p>
             </div>
             <div className={s.categoryContainer}>
-              <div className={s.category} onClick={()=>Navigate('/Search')} >
-                <img className={s.categoryIMG} src={ellasIMG} alt='Ellas img'/>
-                <div className={s.mask} style={{backgroundImage: `url(${categoriaTodxs})`}}/>
+              <div className={s.category} onClick={()=>Navigate('/Search/Accesorios')} >
+                <img className={s.categoryIMG} src={accesorios} alt='Accesorios'/>
+                <div className={s.mask} style={{backgroundImage: `url(${categoriaGreen})`}}/>
               </div>
               <p className={s.categoryLabel}>Accesorios</p>
             </div>
             <div className={s.categoryContainer}>
-              <div className={s.category} onClick={()=>Navigate('/Search')} >
-                <img className={s.categoryIMG} src={ellosIMG} alt='Ellos img'/>
-                <div className={s.mask} style={{backgroundImage: `url(${categoriaEllas})`}}/>
+              <div className={s.category} onClick={()=>Navigate('/Search/Abrigos')} >
+                <img className={s.categoryIMG} src={abrigos} alt='Abrigos'/>
+                <div className={s.mask} style={{backgroundImage: `url(${categoriaBlue})`}}/>
               </div>
               <p className={s.categoryLabel}>Abrigos</p>
             </div>
             <div className={s.categoryContainer}>
-              <div className={s.category} onClick={()=>Navigate('/Search')} >
-                <img className={s.categoryIMG} src={todxsIMG} alt='Todos img'/>
-                <div className={s.mask} style={{backgroundImage: `url(${categoriaEllos})`}}/>
+              <div className={s.category} onClick={()=>Navigate('/Search/Bebes')} >
+                <img className={s.categoryIMG} src={bebes} alt='Bebes'/>
+                <div className={s.mask} style={{backgroundImage: `url(${categoriaPurple})`}}/>
               </div>
               <p className={s.categoryLabel}>Bebes</p>
             </div>
