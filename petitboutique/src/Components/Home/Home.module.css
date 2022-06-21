@@ -49,6 +49,7 @@
     transform: scale(1.1);
 }
 
+
 .categoryIMG,
 .IMGGenero{
     position: absolute;
@@ -77,6 +78,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    cursor: pointer;
 }
 
 .genero:nth-child(1) {

@@ -367,8 +367,12 @@
     font-size: 2rem;
 }
 
+.modalTitle{
+    text-align: center;
+}
+
 .btnCancel{
-    background-color: #20613F;
+    background-color: #7ED957;
 }
 
 
