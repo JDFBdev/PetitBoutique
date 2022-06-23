@@ -12,9 +12,8 @@ import "swiper/css/pagination";
 // import required modules
 import { FreeMode, Pagination } from "swiper";
 
-export default function SwiperProducts() {
-  const [products, setProducts] = useState([0,1,2,3,4,5,6,7,8,10])
-  const skeletonCards = [0,1,2,3,4]
+export default function SwiperProducts({products}) {
+  const skeletonCards = [0,1,2,3,4,5]
 
   return (
     <>
@@ -31,7 +30,7 @@ export default function SwiperProducts() {
         { 
           products ?
           products?.map((p, i)=>{
-            return <SwiperSlide key={i} className={s.swiperSlide}><Card /></SwiperSlide>
+            return <SwiperSlide key={i} className={s.swiperSlide}><Card product={p} /></SwiperSlide>
           }) :
           skeletonCards.map((p, i)=>{
             return (

@@ -33,7 +33,7 @@ export default function Admin(){
     useEffect(()=>{  // Obtengo data de productos
         window.scrollTo(0, 0);
         async function fetchData() {
-            let promise = await axios.get(`http://localhost:3001/todosProductos`)
+            let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/todosProductos`)
             let response = promise.data;
             setProducts(response);
         }
@@ -129,7 +129,7 @@ export default function Admin(){
     },[url]);
 
     const hanldeSubmit = async function(url){  // Posteamos el producto
-        let promise = await axios.post(`http://localhost:3001/crearProducto`,{
+        let promise = await axios.post(`https://petitboutique-backend.herokuapp.com/crearProducto`,{
             nombre: input.title,
             imagen: url,
             precio: input.precio,
@@ -162,7 +162,7 @@ export default function Admin(){
         e.preventDefault();
         openLoading();
 
-        let promise = await axios.post(`http://localhost:3001/editarProducto`,{
+        let promise = await axios.post(`https://petitboutique-backend.herokuapp.com/editarProducto`,{
             nombre: selected.nombre,
             imagen: selected.imagen,
             precio: selected.precio,
@@ -189,7 +189,7 @@ export default function Admin(){
     const handleDelete = async function(e){  // Borramos el producto
         e.preventDefault();
         openLoading();
-        let promise = await axios.post(`http://localhost:3001/borrarProducto`,{
+        let promise = await axios.post(`https://petitboutique-backend.herokuapp.com/borrarProducto`,{
             id: selected.id
         })
         let response = promise.data;
@@ -224,15 +224,15 @@ export default function Admin(){
                     <div className={s.categories}>
                         <select className={s.input} id='categories' onChange={handleInput}>
                             <option value='default'>Seleccionar Categoria</option>
-                            <option value='Pantalones'>Pantalones</option>
-                            <option value='Remeras'>Remeras</option>
-                            <option value='Bebes'>Bebes</option>
-                            <option value='Vestidos'>Vestidos</option>
-                            <option value='Accesorios'>Accesorios</option>
-                            <option value='Abrigos'>Abrigos</option>
-                            <option value='Nenes'>Nenes</option>
-                            <option value='Nenas'>Nenas</option>
-                            <option value='Unisex'>Unisex</option>
+                            <option value='pantalones'>Pantalones</option>
+                            <option value='remeras'>Remeras</option>
+                            <option value='bebes'>Bebes</option>
+                            <option value='vestidos'>Vestidos</option>
+                            <option value='accesorios'>Accesorios</option>
+                            <option value='abrigos'>Abrigos</option>
+                            <option value='nenes'>Nenes</option>
+                            <option value='nenas'>Nenas</option>
+                            <option value='unisex'>Unisex</option>
                         </select>
                         <div className={s.categoriesContainer}>
                         {
@@ -341,15 +341,15 @@ export default function Admin(){
                             <div className={s.categories}>
                                 <select className={s.input} id='categoria' onChange={handleInputSelected}>
                                     <option value='default'>Seleccionar Categoria</option>
-                                    <option value='Pantalones'>Pantalones</option>
-                                    <option value='Remeras'>Remeras</option>
-                                    <option value='Bebes'>Bebes</option>
-                                    <option value='Vestidos'>Vestidos</option>
-                                    <option value='Accesorios'>Accesorios</option>
-                                    <option value='Abrigos'>Abrigos</option>
-                                    <option value='Nenes'>Nenes</option>
-                                    <option value='Nenas'>Nenas</option>
-                                    <option value='Unisex'>Unisex</option>
+                                    <option value='pantalones'>Pantalones</option>
+                                    <option value='remeras'>Remeras</option>
+                                    <option value='bebes'>Bebes</option>
+                                    <option value='vestidos'>Vestidos</option>
+                                    <option value='accesorios'>Accesorios</option>
+                                    <option value='abrigos'>Abrigos</option>
+                                    <option value='nenes'>Nenes</option>
+                                    <option value='nenas'>Nenas</option>
+                                    <option value='unisex'>Unisex</option>
                                 </select>
                                 <div className={s.categoriesContainer}>
                                 {
