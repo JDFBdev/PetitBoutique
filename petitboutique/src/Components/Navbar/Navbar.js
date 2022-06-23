@@ -8,7 +8,7 @@ import Insta from '../../img/instagram.png';
 import { isMobile } from 'react-device-detect';
 import Lupa from '../../img/lupa.png';
 
-export default function Navbar() {
+export default function Navbar({open}) {
     const [input, setInput] = useState('');
     const Navigate = useNavigate();
 
@@ -30,15 +30,15 @@ export default function Navbar() {
             <div className={s.search}>
                 <form className={s.form}>
                     <input className={s.input} onChange={handleInput} placeholder='Encontra lo que buscas...'/>
-                    <img className={s.lupa} src={Lupa} alt='Lupa' onClick={()=> Navigate('/Search/Populares')}/>
+                    <img className={s.lupa} src={Lupa} alt='Lupa' onClick={()=> Navigate(`/Search/${input.length > 1 ? input : 'Populares'}`)}/>
                 </form>
                 <div className={s.categories}>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Remeras</button>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Pantalones</button>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Vestidos</button>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Accesorios</button>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Abrigos</button>
-                    <button className={s.category} onClick={()=> Navigate('/Search')}>Bebes</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search/Remeras')}>Remeras</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search/Pantalones')}>Pantalones</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search/Vestidos')}>Vestidos</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search/Accesorios')}>Accesorios</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search/Abrigos')}>Abrigos</button>
+                    <button className={s.category} onClick={()=> Navigate('/Search/Bebes')}>Bebes</button>
                 </div>
             </div>
             <div className={s.logos}>
@@ -48,7 +48,7 @@ export default function Navbar() {
                 <div className={s.logoContainer} onClick={handleWasap}>
                     <img className={s.logo} src={Wpp} alt='Whatsapp Logo' />
                 </div>
-                <div className={s.logoContainer}>
+                <div className={s.logoContainer} onClick={open}>
                     <img className={s.logo} src={Cart} alt='Cart Logo'/>
                 </div>
             </div>

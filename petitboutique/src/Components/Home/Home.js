@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import s from './Home.module.css';
 import { useNavigate } from 'react-router-dom';
+import Transition from '../Transition/Transition';
+import { useModal } from 'react-hooks-use-modal';
 import Navbar from '../Navbar/Navbar';
 import SwiperMain from '../SwiperMain/SwiperMain';
 import SwiperProducts from '../SwiperProducts/SwiperProducts';
@@ -20,15 +22,29 @@ import accesorios from '../../img/accesorios.png';
 import abrigos from '../../img/abrigos.png';
 import bebes from '../../img/bebes.png';
 import Footer from '../Footer/Footer';
+import Cart from '../Cart/Cart';
 import { useMediaQuery } from 'react-responsive';
+import axios from 'axios';
 
 export default function Home() {
   const Navigate = useNavigate();
+  const [products, setProducts] = useState();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1200px)' })
+  const [Modal, open] = useModal('root', { preventScroll: false, closeOnOverlayClick: true});
+
+  useEffect(()=>{  // Obtengo data de productos
+    window.scrollTo(0, 0);
+    async function fetchData() {
+      let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/todosProductos`)
+      let response = promise.data;
+      setProducts(response);
+    }
+    fetchData();
+  },[])
 
   return (
     <div>
-      <Navbar/>
+      <Navbar open={open}/>
       <div className={s.content}>
         <SwiperMain/>
         <div className={s.categories}>
@@ -96,7 +112,7 @@ export default function Home() {
         {
           isTabletOrMobile && 
           <div className={s.moduleContainer}>
-            <div className={s.genero}>
+            <div className={s.genero} onClick={()=>Navigate('/Search/Ellas')}>
                 <div>
                   <img className={s.IMGGenero} src={ellasIMG} alt='Ellas img'/>
                   <div className={s.maskGenero} style={{backgroundImage: `url(${categoriaEllas})`}}/>
@@ -105,7 +121,7 @@ export default function Home() {
                   <h3 className={s.generoTitle}>Para Ellas</h3>
                 </div>
             </div>
-            <div className={s.genero}>
+            <div className={s.genero} onClick={()=>Navigate('/Search/Ellos')}>
                 <div>
                   <img className={s.IMGGenero} src={ellosIMG} alt='Ellos img'/>
                   <div className={s.maskGenero} style={{backgroundImage: `url(${categoriaEllos})`}}/>
@@ -114,7 +130,7 @@ export default function Home() {
                   <h3 className={s.generoTitle}>Para Ellos</h3>
                 </div>
             </div>
-            <div className={s.genero}>
+            <div className={s.genero} onClick={()=>Navigate('/Search/Todxs')}>
                 <div>
                   <img className={s.IMGGenero} src={todxsIMG} alt='Todos img'/>
                   <div className={s.maskGenero} style={{backgroundImage: `url(${categoriaTodxs})`}}/>
@@ -127,7 +143,7 @@ export default function Home() {
         }
         <div className={s.moduleContainer}>
           <h2 className={s.moduleTitle}>Nuestros Productos Mas Vendidos</h2>
-          <SwiperProducts/>
+          <SwiperProducts products={products}/>
         </div>
         <div className={s.moduleContainer}>
           <h2 className={s.moduleTitle}>Av. Maipú 825, Vicente López, Buenos Aires</h2>
@@ -135,6 +151,11 @@ export default function Home() {
         </div>
         <Footer/>
       </div>
+      <Modal>
+        <Transition>
+          <Cart/>
+        </Transition>
+      </Modal>
     </div>
   );
 }
