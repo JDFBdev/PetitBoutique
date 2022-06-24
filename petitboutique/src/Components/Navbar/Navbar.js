@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import s from './Navbar.module.css';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../img/Petit Boutique.png';
@@ -8,14 +8,14 @@ import Insta from '../../img/instagram.png';
 import { isMobile } from 'react-device-detect';
 import Lupa from '../../img/lupa.png';
 
-export default function Navbar({open}) {
+export default function Navbar({open, cartLength}) {
     const [input, setInput] = useState('');
     const Navigate = useNavigate();
 
     const handleInput = function(e){
         setInput(e.target.value)
     }
-
+    
     const handleWasap = function(e){
         e.preventDefault();
         isMobile ?
@@ -49,6 +49,9 @@ export default function Navbar({open}) {
                     <img className={s.logo} src={Wpp} alt='Whatsapp Logo' />
                 </div>
                 <div className={s.logoContainer} onClick={open}>
+                    {
+                        cartLength > 0 && <div className={s.cartLength}>{cartLength}</div>
+                    }
                     <img className={s.logo} src={Cart} alt='Cart Logo'/>
                 </div>
             </div>

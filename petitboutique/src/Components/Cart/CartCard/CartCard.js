@@ -6,7 +6,7 @@ export default function CartCard({product, deleteItem, index}){
     return(
         <div className={s.container}>
             <div className={s.imgContainer}>
-                <img className={s.img} src={product.imagen} alt='item img'/>
+                <img className={s.img} src={product.imagen[product.color]} alt='item img'/>
             </div>
             <div className={s.data}>
                 <div className={s.top}>

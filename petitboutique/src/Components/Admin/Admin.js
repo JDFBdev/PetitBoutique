@@ -10,8 +10,8 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../Firebase/Firebase";
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { GetColorName } from 'hex-color-to-color-name';
 import { CompactPicker } from 'react-color';
+import ColorName from "../ColorName/ColorName";
 
 const selector = ['B0-6', 'B6-12', 'B12-18', 'B18-24',2,4,6,8,10,12,14,16];
 
@@ -269,11 +269,11 @@ export default function Admin(){
 
                     <div className={s.colores}>
                         <div className={s.colorSelector}>
-                            <CompactPicker id='colores' type='color' placeholder="Seleccionar Colores" onChange={(e)=>{setColor({id: e.hex, name: GetColorName(e.hex)})}}/>
+                            <CompactPicker id='colores' type='color' placeholder="Seleccionar Colores" onChange={(e)=>{setColor({id: e.hex, name: ColorName(e.hex)})}}/>
                             {
                                 input.colores.length === input.files.length && color.id !== '' && input.colores.length < 6 ?
                                 <button className={s.btnAgregarColor} onClick={handleColor}>Agregar {color.name}</button>:
-                                <button className={s.btnAgregarColorError} onClick={(e)=>{e.preventDefault();}}>Agregar {color.name}</button>
+                                <button className={s.btnAgregarColorError} onClick={(e)=>{e.preventDefault();}}>Agregar</button>
                             }
                             
                         </div>

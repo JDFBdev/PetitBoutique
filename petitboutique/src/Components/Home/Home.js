@@ -14,7 +14,7 @@ import categoriaGreen from '../../img/categoriaGreen.png';
 import categoriaPurple from '../../img/categoriaPurple.png';
 import ellasIMG from '../../img/ellasIMG.jpg';
 import ellosIMG from '../../img/ellosIMG.jpg';
-import todxsIMG from '../../img/todxsIMG.jpg';
+import todxsIMG from '../../img/todxsIMG.png';
 import remeras from '../../img/remeras.png';
 import pantalones from '../../img/pantalones.png';
 import vestidos from '../../img/vestidos.png';
@@ -29,8 +29,9 @@ import axios from 'axios';
 export default function Home() {
   const Navigate = useNavigate();
   const [products, setProducts] = useState();
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1200px)' })
-  const [Modal, open] = useModal('root', { preventScroll: false, closeOnOverlayClick: true});
+  const [cartLength, setCartLength] = useState(0);
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1200px)' });
+  const [Modal, open, close] = useModal('root', { preventScroll: false, closeOnOverlayClick: true});
 
   useEffect(()=>{  // Obtengo data de productos
     window.scrollTo(0, 0);
@@ -40,11 +41,21 @@ export default function Home() {
       setProducts(response);
     }
     fetchData();
+
+    
+
+    if (localStorage.getItem('order')) {
+      let productsCart = [];
+      productsCart = localStorage.getItem('order');
+      productsCart = JSON.parse(productsCart);
+      setCartLength(productsCart.length);
+    }
+
   },[])
 
   return (
     <div>
-      <Navbar open={open}/>
+      <Navbar open={open} cartLength={cartLength}/>
       <div className={s.content}>
         <SwiperMain/>
         <div className={s.categories}>
@@ -143,7 +154,7 @@ export default function Home() {
         }
         <div className={s.moduleContainer}>
           <h2 className={s.moduleTitle}>Nuestros Productos Mas Vendidos</h2>
-          <SwiperProducts products={products}/>
+          <SwiperProducts products={products} setCartLength={setCartLength}/>
         </div>
         <div className={s.moduleContainer}>
           <h2 className={s.moduleTitle}>Av. Maipú 825, Vicente López, Buenos Aires</h2>
@@ -153,7 +164,7 @@ export default function Home() {
       </div>
       <Modal>
         <Transition>
-          <Cart/>
+          <Cart close={close} setCartLength={setCartLength}/>
         </Transition>
       </Modal>
     </div>

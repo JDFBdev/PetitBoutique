@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import s from './Card.module.css';
-import { GetColorName } from 'hex-color-to-color-name';
 import toast from 'react-hot-toast';
+import ColorName from '../ColorName/ColorName';
 
-export default function Card({product, disableCart}){
+export default function Card({product, disableCart, setCartLength}){
     const [options, setOptions] = useState({color: 0, talle: 'X'})
 
     const handleColors = function(e){
@@ -23,12 +23,13 @@ export default function Card({product, disableCart}){
 
                 productsCart = localStorage.getItem('order');  // Lo traigo
                 productsCart = JSON.parse(productsCart);       // Y lo convierto a JSON
-                productsCart.push({...product, colorName: GetColorName(product.color[options.color]), colorCode: product.color[options.color], color: options.color, talle: options.talle});  //  Lo pusheo
+                productsCart.push({...product, colorName: ColorName(product.color[options.color]), colorCode: product.color[options.color], color: options.color, talle: options.talle});  //  Lo pusheo
                 localStorage.setItem('order', JSON.stringify(productsCart))   // Y subo al localStorage
-
+                setCartLength(productsCart.length);
             } else {                                           // Si no hay nada en el localStorage
-                productsCart.push({...product, colorName: GetColorName(product.color[options.color]), colorCode: product.color[options.color], color: options.color, talle: options.talle});    //  Lo pusheo
+                productsCart.push({...product, colorName: ColorName(product.color[options.color]), colorCode: product.color[options.color], color: options.color, talle: options.talle});    //  Lo pusheo
                 localStorage.setItem('order', JSON.stringify(productsCart))   // Y subo al localStorage
+                setCartLength(productsCart.length);
             }
             toast.success('Producto Agregado al carrito');
         }
