@@ -11,31 +11,44 @@ import { useParams } from 'react-router-dom';
 import Pagination from './Pagination/Pagination';
 
 export default function Search(){
-    const [products, setProducts] = useState();
+    const [products, setProducts] = useState([]);
+    const [cartLength, setCartLength] = useState(0);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(21);
-    const [Modal, open] = useModal('root', { preventScroll: false, closeOnOverlayClick: true});
+    const [Modal, open, close] = useModal('root', { preventScroll: false, closeOnOverlayClick: true});
     const skeletonCards = [0,1,2,3,4,5,6,7,8,9];
     let { param } = useParams();
-    let currentPosts = []
+    let currentPosts = [];
 
     useEffect(()=>{  // Obtengo data de productos
         window.scrollTo(0, 0);
         async function fetchData() {
+            setLoading(true);
             let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/buscador/${param}`)
             let response = promise.data;
             setProducts(response);
+            setLoading(false);
         }
         fetchData();
+
+        if (localStorage.getItem('order')) {
+            let productsCart = [];
+            productsCart = localStorage.getItem('order');
+            productsCart = JSON.parse(productsCart);
+            setCartLength(productsCart.length);
+        }
+
     },[]);
 
     useEffect(()=>{
         window.scrollTo(0, 0);
         async function fetchData() {
+            setLoading(true);
             let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/buscador/${param}`)
             let response = promise.data;
             setProducts(response);
+            setLoading(false);
         }
         fetchData();
     },[param]);
@@ -57,12 +70,14 @@ export default function Search(){
 
     return(
         <div className={s.container}>
-            <Navbar open={open}/>
+            <Navbar open={open} cartLength={cartLength}/>
             <div className={s.content}>
                 {
-                    products && products[0]  ? 
+                    !loading ? 
+                    products[0] ? 
                     <h2 className={s.title}>Resultados para {param}</h2>:
-                    <h2 className={s.title}>No hay resultados para {param}</h2>
+                    <h2 className={s.title}>No hay resultados para {param}</h2> :
+                    <h2 className={s.title}>Buscando...</h2>
                 }
                 <div className={s.data}>
                     <div className={s.filters}>
@@ -82,12 +97,12 @@ export default function Search(){
                             {
                                 products && !loading ? 
                                 currentPosts?.map((p)=>{
-                                    return <Card key={p.id} product={p} responsive={true} />
+                                    return <Card key={p.id} product={p} setCartLength={setCartLength}/>
                                 }) :
                                 skeletonCards.map((p, i)=>{
                                     return (
-                                        <Transition key={i} timeout={i*50} >
-                                            <div  className={s.skeletonCard} >
+                                        <Transition key={i} timeout={i*50}>
+                                            <div  className={s.skeletonCard}>
                                                 <div className={s.skeletonImg}/>
                                                 <div className={s.skeletonTitle}/>
                                                 <div className={s.skeletonTitle2}/>
@@ -95,6 +110,10 @@ export default function Search(){
                                         </Transition>
                                     )
                                 })
+                            }
+                            {
+                                (!products[0] && !loading) &&
+                                <div style={{width: '220px', height: '380px'}}></div>
                             }
                         </div>
                         <div className={s.pagination}>
@@ -110,7 +129,7 @@ export default function Search(){
             <Footer/>
             <Modal>
                 <Transition>
-                    <Cart/>
+                    <Cart close={close} setCartLength={setCartLength}/>
                 </Transition>
             </Modal>
         </div>

@@ -164,6 +164,24 @@
     height: 1.7rem;
 }
 
+.cartLength{
+
+    font-family: 'Quicksand';
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    background-color: #03989E;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    margin-top: -40px;
+    margin-left: 40px;
+}
+
 @media (max-width: 1200px) {
 
     .petitLogo{

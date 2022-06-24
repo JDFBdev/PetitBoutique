@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import s from './SwiperProducts.module.css';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,7 +12,7 @@ import "swiper/css/pagination";
 // import required modules
 import { FreeMode, Pagination } from "swiper";
 
-export default function SwiperProducts({products}) {
+export default function SwiperProducts({products, setCartLength}) {
   const skeletonCards = [0,1,2,3,4,5]
 
   return (
@@ -30,7 +30,7 @@ export default function SwiperProducts({products}) {
         { 
           products ?
           products?.map((p, i)=>{
-            return <SwiperSlide key={i} className={s.swiperSlide}><Card product={p} /></SwiperSlide>
+            return <SwiperSlide key={i} className={s.swiperSlide}><Card product={p} setCartLength={setCartLength} /></SwiperSlide>
           }) :
           skeletonCards.map((p, i)=>{
             return (

@@ -4,7 +4,7 @@ import Wpp from '../../img/wppwhite.png';
 import CartCard from "./CartCard/CartCard";
 import {isMobile} from 'react-device-detect';
 
-export default function Cart(){
+export default function Cart({close, setCartLength}){
     const [products, setProducts] = useState([]);
     const [total, setTotal] = useState(0);
 
@@ -16,6 +16,7 @@ export default function Cart(){
           productsCart = JSON.parse(productsCart);
           setProducts(productsCart);
           handleTotal(productsCart);
+          setCartLength(productsCart.length);
         }
 
     },[])
@@ -36,6 +37,7 @@ export default function Cart(){
         setProducts(productsCart);
         handleTotal(productsCart);
         localStorage.setItem('order', JSON.stringify(productsCart))
+        setCartLength(productsCart.length);
     }
 
     const handleWasap = function(e){
@@ -55,7 +57,10 @@ export default function Cart(){
     return(
         <div className={s.container}>
             <div className={s.header}>
-                <h3 className={s.title}>Carrito</h3>
+                <div className={s.titleBtnContainer}>
+                    <h3 className={s.title}>Carrito</h3>
+                    <button className={s.btnDelete} onClick={close}>X</button>
+                </div>
                 {
                     products.length === 0 && <p className={s.subTitle}>No hay productos</p>
                 }

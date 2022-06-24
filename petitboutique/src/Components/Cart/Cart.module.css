@@ -19,6 +19,31 @@
     width: 90%;
 }
 
+.titleBtnContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnDelete{
+    font-size: .8rem;
+    font-weight: 500;
+    border: none;
+    background-color: #cc4747;
+    color: white;
+    border-radius: .4rem;
+    padding-top: .4rem;
+    padding-bottom: .4rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    cursor: pointer;
+    margin-right: 8px;
+    height: fit-content;
+    width: fit-content;
+}
+
+
 .title,
 .subTitle{
     font-size: 2rem;
