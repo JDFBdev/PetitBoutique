@@ -12,6 +12,7 @@ router.get('/:param', async (req, res) => {
     try {
         if (esCategoria) {
             var productosCategoria = await Productos.findAll({
+                limit:8,
                 where: {
                     "categoria": {
                         [Op.contains]: [param.toLowerCase()]
@@ -20,6 +21,7 @@ router.get('/:param', async (req, res) => {
             });
         } else {
             var productosNombre = await Productos.findAll({
+                limit:8,
                 where: {
                     "nombre": {
                         [Op.iLike]: `%${param}%`
@@ -34,27 +36,6 @@ router.get('/:param', async (req, res) => {
     if (esCategoria) {
         return res.send(productosCategoria);
     }else if (productosNombre[0]) {
-        let promesas = [];
-        productosNombre[0].categoria.forEach(categoria => {
-            promesas.push( Productos.findAll({
-                where: {
-                    "categoria": {
-                        [Op.contains]: [categoria]
-                    }
-                }
-            }))
-        });
-        await Promise.all(promesas).then(values => {
-            values.forEach(value => {
-                productosNombre = productosNombre.concat(value);
-            })
-        })
-        // filtro
-        productosNombre = productosNombre.filter((value, index, self) =>
-            index === self.findIndex((t) => (
-                t.id === value.id
-            ))
-        )
         return res.send(productosNombre);
     }
     res.send({message: "No se encontraron productos", success: true});

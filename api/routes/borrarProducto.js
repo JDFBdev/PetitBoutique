@@ -3,7 +3,7 @@ const router = express.Router();
 const Productos = require('../models/productos')
 
 router.post('/', async (req, res) => {
-    let {nombre, color} = req.body;
+    let {id} = req.body;
     try {
         await Productos.destroy({where: {id}})
     }
