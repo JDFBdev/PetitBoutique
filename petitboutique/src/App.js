@@ -5,6 +5,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Admin from './Components/Admin/Admin';
 import NotFound from './Components/NotFound/NotFound';
+import ProductPage from './Components/ProductPage/ProductPage';
 
 function App() {
   return (
@@ -14,11 +15,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/Search/:param" element={<Search />}/>
-          <Route path="/Admin" element={<Admin/>}/>
+          <Route path="/Product/:param" element={<ProductPage />}/>
+          <Route path="/kYWQ8vVKstxY8C2n" element={<Admin/>}/>
           <Route path="/*" element={<NotFound/>} />
         </Routes>
       </BrowserRouter>
-      </>
+    </>
   );
 }
 

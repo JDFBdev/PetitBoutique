@@ -33,6 +33,7 @@ export default function Home() {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1200px)' });
   const [Modal, open, close] = useModal('root', { preventScroll: false, closeOnOverlayClick: true});
 
+
   useEffect(()=>{  // Obtengo data de productos
     window.scrollTo(0, 0);
     async function fetchData() {
