@@ -10,15 +10,15 @@
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    gap: 1rem;
-    border: 1px solid red;
+    gap: 2rem;
     width: fit-content;
-    height: 400px;
+    height: fit-content;
+    margin-top: 3rem;
 }
 
 .imagenContainer{
     width: 300px;
-    height: 100%;
+    height: 400px;
     background-color: #E9E5DF;
     border-radius: 1rem;
     display: flex;
@@ -35,19 +35,31 @@
 }
 
 .productData{
-    width: 300px;
+    gap: 1rem;
+    width: 350px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .title,
 .precio,
 .talleTitle,
 .colorTitle,
-.talle{
+.talle,
+.selectedTalle,
+.descripcionTitle,
+.descripcion{
     font-size: 1.8rem;
     font-family: 'Quicksand';
     font-weight: 600;
     margin: 0;
     color: rgb(28, 28, 28);
+}
+
+.title{
+    line-height: 1.6rem;
 }
 
 .precio{
@@ -59,37 +71,111 @@
     font-size: 1.3rem;
 }
 
+.descripcion{
+    font-size: 1.1rem;
+}
+
 .talles{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: .5rem;
+    margin-left: .5rem;
 }
 
-.talle{
+.talle,
+.selectedTalle{
     font-size: 1.1rem;
     flex-wrap: wrap;
-    border-style: dotted;
+    border-style: groove;
     padding-top: .2rem;
     padding-bottom: .2rem;
     padding-left: .4rem;
     padding-right: .4rem;
     border-radius: .5rem;
     border-width: 2px;
+    cursor: pointer;
+}
+
+.selectedTalle{
+    border: solid;
+    border-width: 2px;
+    background-color: rgb(236, 236, 236);
+    border-color: rgb(46, 46, 46);
+}
+
+.colores{
+    margin-top: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    margin-left: .5rem;
+    flex-wrap: wrap;
 }
 
 .colorImgContainer{
     width: 70px;
     height: 85px;
     background-color: #E9E5DF;
-    border-radius: .8rem;
+    border-radius: .5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .colorImg{
     width: 50px;
     height: 60px;
     object-fit: cover;
+}
+
+.btnCart{
+    width: 100%;
+    height: 47px;
+    border-radius: .8rem;
+    border: none;
+    background-color: #7ED957;
+    font-size: 1.2rem;
+    font-family: 'Quicksand';
+    font-weight: 500;
+    margin: 0;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.divider{
+    width: 100%;
+    height: 3px;
+    background-color: #E9E5DF;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+
+.descripcionContainer{
+    width: 800px;
+}
+
+.moduleContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 90%;
+    max-width: 1200px;
+    margin-bottom: 3rem;
+    
+}
+
+.moduleTitle{
+    font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+    font-family: 'Quicksand';
+    font-weight: 600;
+    margin: 0;
+    color: rgb(28, 28, 28);
+    text-align: center;
 }

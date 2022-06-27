@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/Search/:param" element={<Search />}/>
           <Route path="/Product/:param" element={<ProductPage />}/>
-          <Route path="/kYWQ8vVKstxY8C2n" element={<Admin/>}/>
+          <Route path="/Admin" element={<Admin/>}/>
           <Route path="/*" element={<NotFound/>} />
         </Routes>
       </BrowserRouter>
