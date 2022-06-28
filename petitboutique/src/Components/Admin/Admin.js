@@ -16,11 +16,11 @@ import ColorName from "../ColorName/ColorName";
 const selector = ['B0-6', 'B6-12', 'B12-18', 'B18-24',2,4,6,8,10,12,14,16];
 
 export default function Admin(){
-    const [input, setInput] = useState({title: '', categories: [], talles: [], files: [], colores: [], precio: ''});
+    const [input, setInput] = useState({title: '', categories: [], talles: [], files: [], colores: [], precio: '', descripcion: ''});
     const [url, setUrl] = useState([]);
     const [color, setColor] = useState({id: '', name: 'Black'});
     const [modifyUrl, setModifyUrl] = useState('');
-    const [selected, setSelected] = useState({nombre: '', categoria: [], talle: [], imagen: [], color: [], precio: '', id: -1});
+    const [selected, setSelected] = useState({nombre: '', categoria: [], talle: [], imagen: [], color: [], precio: '', id: -1, descripcion: ''});
     const [selectedImagePreview, setSelectedImagePreview] = useState([]);
     const [imagePreview, setImagePreview] = useState([]);
     const [products, setProducts] = useState([]);
@@ -41,10 +41,32 @@ export default function Admin(){
     },[])
 
     const handleInput = function(e){  // Estado de inputs
-        if (e.target.id === 'title' || e.target.id === 'precio'){
+        if (e.target.id === 'title' || e.target.id === 'precio' || e.target.id === 'descripcion'){
             setInput(prevInput => ({...prevInput, [e.target.id]:e.target.value}));
         } else if (!input[e.target.id].includes(e.target.value) && e.target.value !== 'default'){
             setInput(prevInput => ({...prevInput, [e.target.id]: [...prevInput[e.target.id], e.target.value]}));
+        }
+    }
+
+    const handleTalle = function(e){
+        e.target.id = e.target.id.toString();
+        if (input.talles.includes(e.target.id)){
+            setInput((prev)=>({...prev, talles: prev.talles.filter(function(t) { 
+                return t !== e.target.id;
+            })}));
+        } else {
+            setInput(prevInput => ({...prevInput, talles: [...prevInput['talles'], e.target.id.toString()]}));
+        }
+    }
+
+    const handleTalleSelected = function(e){
+        e.target.id = e.target.id.toString();
+        if (selected.talle.includes(e.target.id)){
+            setSelected((prev)=>({...prev, talle: prev.talle.filter(function(t) { 
+                return t !== e.target.id;
+            })}));
+        } else {
+            setSelected(prevInput => ({...prevInput, talle: [...prevInput['talle'], e.target.id.toString()]}));
         }
     }
 
@@ -66,7 +88,7 @@ export default function Admin(){
     }
 
     const handleInputSelected = function(e){  // Estado de inputs
-        if (e.target.id === 'nombre' || e.target.id === 'precio'){
+        if (e.target.id === 'nombre' || e.target.id === 'precio' || e.target.id === 'descripcion'){
             setSelected(prevInput => ({...prevInput, [e.target.id]:e.target.value}));
         } else if (!selected[e.target.id].includes(e.target.value) && e.target.value !== 'default'){
             setSelected(prevInput => ({...prevInput, [e.target.id]: [...prevInput[e.target.id], e.target.value]}));
@@ -135,7 +157,8 @@ export default function Admin(){
             precio: input.precio,
             categoria: input.categories,
             color: input.colores,
-            talle: input.talles
+            talle: input.talles,
+            descripcion: input.descripcion
         })
         let response = promise.data;
         if (!response.success){
@@ -169,7 +192,8 @@ export default function Admin(){
             categoria: selected.categoria,
             color: selected.color,
             talle: selected.talle,
-            id: selected.id
+            id: selected.id,
+            descripcion: selected.descripcion
         })
         let response = promise.data;
         if (!response.success){
@@ -247,21 +271,11 @@ export default function Admin(){
                     </div>
                     
                     <div className={s.talles}>
-                        <select className={s.input} id='talles' onChange={handleInput}>
-                            <option value='default'>Seleccionar Talles</option>
-                            {
-                                selector.map((o)=>{
-                                    return <option value={o} key={o} >{o}</option>
-                                })
-                            }
-                        </select>
+                        <p className={s.tallesLabel}>Seleccionar Talles:</p>
                         <div className={s.tallesContainer}>
                         {
-                            input.talles?.map((t)=>{
-                                return <div className={s.talle} key={t}>
-                                    <p className={s.talleText}>{t}</p>
-                                    <p className={s.talleTextClose} onClick={()=>handleCloseTalle(t)}>X</p>
-                                </div>
+                            selector.map((t, i)=>{
+                                return <div className={input.talles.includes(t.toString()) ? s.selectedTalle : s.talle} id={t} key={i} onClick={handleTalle} >{t}</div>
                             })
                         }
                         </div>
@@ -292,6 +306,9 @@ export default function Admin(){
                                 )
                             })
                         }
+                    </div>
+                    <div className={s.inputContainer}>
+                        <textarea className={s.input} id='descripcion' placeholder="Descripcion..." onChange={handleInput} style={{height: '5rem', resize: 'none', paddingTop: '10px'}}/>
                     </div>
                     {
                         ((input.title !== '' && input.files[0] && input.categories[0] && input.colores[0] && input.precio !== '' && input.talles[0] && (input.colores.length === input.files.length))) ?
@@ -364,25 +381,20 @@ export default function Admin(){
                                 }
                                 </div>
                             </div>
+
                             <div className={s.talles}>
-                                <select className={s.input} id='talle' onChange={handleInputSelected}>
-                                    <option value='default'>Seleccionar Talles</option>
-                                    {
-                                        selector.map((o)=>{
-                                            return <option value={o} key={o} >{o}</option>
-                                        })
-                                    }
-                                </select>
+                                <p className={s.tallesLabel}>Seleccionar Talles:</p>
                                 <div className={s.tallesContainer}>
                                 {
-                                    selected.talle?.map((t)=>{
-                                        return <div className={s.talle} key={t}>
-                                            <p className={s.talleText}>{t}</p>
-                                            <p className={s.talleTextClose} onClick={()=>handleCloseTalleSelected(t)}>X</p>
-                                        </div>
+                                    selector.map((t, i)=>{
+                                        return <div className={selected.talle.includes(t.toString()) ? s.selectedTalle : s.talle} id={t} key={i} onClick={handleTalleSelected} >{t}</div>
                                     })
                                 }
                                 </div>
+                            </div>
+
+                            <div className={s.inputContainer}>
+                                <textarea className={s.input} value={selected.descripcion} id='descripcion' placeholder="Descripcion..." onChange={handleInputSelected} style={{height: '5rem', resize: 'none', paddingTop: '10px'}}/>
                             </div>
                             <button className={s.btnDelete} onClick={(e)=>{e.preventDefault(); openDelete();}}>Eliminar Producto</button>
                             <button className={s.btnSubmit} type='submit' onClick={handleSubmitModificar}>Modificar Producto</button>

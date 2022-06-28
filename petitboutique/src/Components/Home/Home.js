@@ -62,15 +62,15 @@ export default function Home() {
         <div className={s.categories}>
           { !isTabletOrMobile ? 
             <>
-              <div className={s.category} onClick={()=>Navigate('/Search/Ellas')} >
+              <div className={s.category} onClick={()=>Navigate('/Search/Nenas')} >
                 <img className={s.categoryIMG} src={ellasIMG} alt='Ellas img'/>
                 <div className={s.mask} style={{backgroundImage: `url(${categoriaEllas})`}}/>
               </div>
-              <div className={s.category} onClick={()=>Navigate('/Search/Ellos')}>
+              <div className={s.category} onClick={()=>Navigate('/Search/Nenes')}>
                 <img className={s.categoryIMG} src={ellosIMG} alt='Ellos img'/>
                 <div className={s.mask} style={{backgroundImage: `url(${categoriaEllos})`}}/>
               </div>
-              <div className={s.category} onClick={()=>Navigate('/Search/Todxs')}>
+              <div className={s.category} onClick={()=>Navigate('/Search/Unisex')}>
                 <img className={s.categoryIMG} src={todxsIMG} alt='Todos img'/>
                 <div className={s.mask} style={{backgroundImage: `url(${categoriaTodxs})`}}/>
               </div>
@@ -124,7 +124,7 @@ export default function Home() {
         {
           isTabletOrMobile && 
           <div className={s.moduleContainer}>
-            <div className={s.genero} onClick={()=>Navigate('/Search/Ellas')}>
+            <div className={s.genero} onClick={()=>Navigate('/Search/Nenas')}>
                 <div>
                   <img className={s.IMGGenero} src={ellasIMG} alt='Ellas img'/>
                   <div className={s.maskGenero} style={{backgroundImage: `url(${categoriaEllas})`}}/>
@@ -133,7 +133,7 @@ export default function Home() {
                   <h3 className={s.generoTitle}>Para Ellas</h3>
                 </div>
             </div>
-            <div className={s.genero} onClick={()=>Navigate('/Search/Ellos')}>
+            <div className={s.genero} onClick={()=>Navigate('/Search/Nenes')}>
                 <div>
                   <img className={s.IMGGenero} src={ellosIMG} alt='Ellos img'/>
                   <div className={s.maskGenero} style={{backgroundImage: `url(${categoriaEllos})`}}/>
@@ -142,7 +142,7 @@ export default function Home() {
                   <h3 className={s.generoTitle}>Para Ellos</h3>
                 </div>
             </div>
-            <div className={s.genero} onClick={()=>Navigate('/Search/Todxs')}>
+            <div className={s.genero} onClick={()=>Navigate('/Search/Unisex')}>
                 <div>
                   <img className={s.IMGGenero} src={todxsIMG} alt='Todos img'/>
                   <div className={s.maskGenero} style={{backgroundImage: `url(${categoriaTodxs})`}}/>

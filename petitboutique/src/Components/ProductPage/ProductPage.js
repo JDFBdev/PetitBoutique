@@ -18,6 +18,7 @@ export default function ProductPage(){
     const [options, setOptions] = useState({color: 0, talle: 'X'})
     const [cartLength, setCartLength] = useState(0);
     const [Modal, open, close] = useModal('root', { preventScroll: false, closeOnOverlayClick: true});
+
     let { param } = useParams();
 
     useEffect(()=>{  // Obtengo data de productos
@@ -39,7 +40,7 @@ export default function ProductPage(){
             productsCart = localStorage.getItem('order');
             productsCart = JSON.parse(productsCart);
             setCartLength(productsCart.length);
-          }
+        }
     },[param]);
 
     const handleCarrito = function(){
@@ -102,11 +103,17 @@ export default function ProductPage(){
                         <button className={s.btnCart} onClick={handleCarrito}>Agregar al Carrito</button>
                     </div>
                 </div>
-                <div className={s.divider}/>
-                <div className={s.descripcionContainer}>
-                    <h3 className={s.descripcionTitle}>Descripción:</h3>
-                    <p className={s.descripcion}>D asdfnas dfsa df sadf sad fs sda sad fsad sa sf adf sdf s dffsdfs df sfsdf sdf sd sd df asd fsa df asdf asd fas df sadf asdf as dfs dfasd fasdasdfs df</p>
-                </div>
+                {
+                    (product.descripcion && product.descripcion !== '') && 
+                    <>
+                        <div className={s.divider}/>
+                        <div className={s.descripcionContainer}>
+                            <h3 className={s.descripcionTitle}>Descripción:</h3>
+                            <p className={s.descripcion}>{product.descripcion}</p>
+                        </div>
+                    </>
+                }
+
                 <div className={s.divider}/>
             </div>
             <div className={s.moduleContainer}>

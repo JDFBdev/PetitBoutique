@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import s from './Card.module.css';
 import toast from 'react-hot-toast';
 import ColorName from '../ColorName/ColorName';
+import { useNavigate } from 'react-router-dom';
 
 export default function Card({product, disableCart, setCartLength}){
     const [options, setOptions] = useState({color: 0, talle: 'X'})
+
+    const Navigate = useNavigate();
 
     const handleColors = function(e){
         setOptions(prev=>({...prev, color: Number(e.target.id)}));
@@ -40,7 +43,7 @@ export default function Card({product, disableCart, setCartLength}){
             <div className={s.imgContainer}>
             {
                 product ?
-                <img className={s.img} src={product.imagen[options.color]} alt='Sin imagen'/> :
+                <img className={s.img} src={product.imagen[options.color]} alt='Sin imagen' onClick={()=>Navigate(`/Product/${product.id}`)}/> :
                 null
             }
             </div>
@@ -49,7 +52,7 @@ export default function Card({product, disableCart, setCartLength}){
                     <div className={s.titleContainer}>
                     {
                         product ? 
-                        <h4 className={s.title}>{product.nombre}</h4>:
+                        <h4 className={s.title} onClick={()=>Navigate(`/Product/${product.id}`)}>{product.nombre}</h4>:
                         <h4 className={s.title}> </h4>
                     }
                     </div>  
