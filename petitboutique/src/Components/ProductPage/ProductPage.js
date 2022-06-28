@@ -8,20 +8,30 @@ import Cart from "../Cart/Cart";
 import Transition from "../Transition/Transition";
 import Footer from "../Footer/Footer";
 import loading from '../../img/loading.gif';
+import SwiperProducts from '../SwiperProducts/SwiperProducts';
+import ColorName from "../ColorName/ColorName";
+import toast from "react-hot-toast";
 
 export default function ProductPage(){
-    const [product, setProduct] = useState({nombre: '', categoria: [], talle: [], imagen: [loading], color: [], precio: ''});
+    const [product, setProduct] = useState({nombre: '', categoria: [], talle: [], imagen: [loading], color: [], precio: '', descripcion: ''});
+    const [products, setProducts] = useState([]);
     const [options, setOptions] = useState({color: 0, talle: 'X'})
     const [cartLength, setCartLength] = useState(0);
     const [Modal, open, close] = useModal('root', { preventScroll: false, closeOnOverlayClick: true});
+
     let { param } = useParams();
 
     useEffect(()=>{  // Obtengo data de productos
         window.scrollTo(0, 0);
         async function fetchData() {
-            let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/buscarProducto/${param}`)
-            let response = promise.data;
-            setProduct(response);
+            let promise1 = axios.get(`https://petitboutique-backend.herokuapp.com/buscarProducto/${param}`);
+            let promise2 = axios.get(`https://petitboutique-backend.herokuapp.com/todosProductos`);
+
+            Promise.all([promise1, promise2]).then(values=>{
+                setProduct(values[0].data);
+                setProducts(values[1].data);
+            })
+            
         }
         fetchData();
 
@@ -30,8 +40,28 @@ export default function ProductPage(){
             productsCart = localStorage.getItem('order');
             productsCart = JSON.parse(productsCart);
             setCartLength(productsCart.length);
-          }
-    },[])
+        }
+    },[param]);
+
+    const handleCarrito = function(){
+
+        let productsCart = [];
+
+        if (localStorage.getItem('order')) {            // Si hay algo en el localStorage
+
+            productsCart = localStorage.getItem('order');  // Lo traigo
+            productsCart = JSON.parse(productsCart);       // Y lo convierto a JSON
+            productsCart.push({...product, colorName: ColorName(product.color[options.color]), colorCode: product.color[options.color], color: options.color, talle: options.talle});  //  Lo pusheo
+            localStorage.setItem('order', JSON.stringify(productsCart))   // Y subo al localStorage
+            setCartLength(productsCart.length);
+        } else {                                           // Si no hay nada en el localStorage
+            productsCart.push({...product, colorName: ColorName(product.color[options.color]), colorCode: product.color[options.color], color: options.color, talle: options.talle});    //  Lo pusheo
+            localStorage.setItem('order', JSON.stringify(productsCart))   // Y subo al localStorage
+            setCartLength(productsCart.length);
+        }
+        toast.success('Producto Agregado al carrito');
+        
+    }
 
     return(
         <div className={s.container}>
@@ -53,7 +83,7 @@ export default function ProductPage(){
                             <div className={s.talles}>
                                 {product.talle?.map( (t, i) => {
                                     return(
-                                        <div className={s.talle} key={i}>{t}</div>
+                                        <div className={options.talle === t ? s.selectedTalle : s.talle} key={i} onClick={()=>setOptions((prev)=>({...prev, talle: t}))} >{t}</div>
                                     )
                                 })}
                             </div>
@@ -63,16 +93,32 @@ export default function ProductPage(){
                             <div className={s.colores}>
                                 {product.color?.map( (t, i) => {
                                     return(
-                                        <div key={i} className={s.colorImgContainer}>
-                                            <img className={s.colorImg} src={product.imagen[i]}  />
+                                        <div style={{border: options.color === i ? '1px solid black' : '1px solid white'}} key={i} className={s.colorImgContainer} onClick={()=>setOptions((prev)=>({...prev, color: i}))}>
+                                            <img className={s.colorImg} src={product.imagen[i]} />
                                         </div>
                                     )
                                 })}
                             </div>
                         </div>
-                        <button>Agregar al Carrito</button>
+                        <button className={s.btnCart} onClick={handleCarrito}>Agregar al Carrito</button>
                     </div>
                 </div>
+                {
+                    (product.descripcion && product.descripcion !== '') && 
+                    <>
+                        <div className={s.divider}/>
+                        <div className={s.descripcionContainer}>
+                            <h3 className={s.descripcionTitle}>Descripción:</h3>
+                            <p className={s.descripcion}>{product.descripcion}</p>
+                        </div>
+                    </>
+                }
+
+                <div className={s.divider}/>
+            </div>
+            <div className={s.moduleContainer}>
+                <h2 className={s.moduleTitle}>Productos Similares</h2>
+                <SwiperProducts products={products} setCartLength={setCartLength}/>
             </div>
             <Footer/>
             <Modal>

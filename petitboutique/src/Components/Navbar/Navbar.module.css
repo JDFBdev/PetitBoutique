@@ -26,7 +26,6 @@
 .search{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 1rem;
 }
@@ -46,6 +45,7 @@
 
     font-family: 'Quicksand';
     text-indent: 1rem;
+    z-index: 10000;
 }
 
 .input::placeholder{
@@ -60,6 +60,24 @@
     margin-left: -2.3rem;
     margin-top: .5rem;
     cursor: pointer;
+    z-index: 10000;
+}
+
+.browser{
+    position: absolute;
+    width: 510px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: none;
+}
+
+.browserMargin{
+    height: 50px;
+    background-color: none;
+    width: 1px;
 }
 
 .categories{

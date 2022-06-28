@@ -93,7 +93,8 @@
 .talleText,
 .talleTextClose,
 .btnAgregarColor,
-.btnAgregarColorError{
+.btnAgregarColorError,
+.tallesLabel{
     font-size: 1rem;
     font-family: 'Quicksand';
     font-weight: 500;
@@ -101,14 +102,7 @@
     color: rgb(255, 255, 255);
 }
 
-.talleText,
-.talleTextClose{
-    color: black;
-    font-size: .9rem;
-}
-
-.categoryTextClose,
-.talleTextClose{
+.categoryTextClose{
     cursor: pointer;
 }
 
@@ -116,7 +110,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: .5rem;
     background-color: #E9E5DF;
     padding: 1rem;
@@ -124,26 +118,41 @@
 }
 
 .tallesContainer{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 5px;
-    height: fit-content;
+    display: flex;
+    width: 20rem;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: .5rem;
+
 }
 
-.talle{
-    border: 1px solid black;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    width: fit-content;
+.tallesLabel{
+    color: black;
+    font-weight: 600;
+}
+
+.talle,
+.selectedTalle{
+    font-size: 1.1rem;
+    flex-wrap: wrap;
+    border-style: groove;
     padding-top: .2rem;
     padding-bottom: .2rem;
-    padding-left: .7rem;
-    padding-right: .7rem;
-    border-radius: 1rem;
+    padding-left: .4rem;
+    padding-right: .4rem;
+    border-radius: .5rem;
+    border-width: 2px;
+    cursor: pointer;
     background-color: white;
+}
+
+.selectedTalle{
+    border: solid;
+    border-width: 2px;
+    background-color: rgb(236, 236, 236);
+    border-color: rgb(46, 46, 46);
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.281);
 }
 
 .colores{

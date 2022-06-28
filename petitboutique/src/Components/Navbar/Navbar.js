@@ -7,13 +7,26 @@ import Wpp from '../../img/wpp.png';
 import Insta from '../../img/instagram.png';
 import { isMobile } from 'react-device-detect';
 import Lupa from '../../img/lupa.png';
+import axios from 'axios';
+import NavbarCard from './NavbarCard/NavbarCard';
 
 export default function Navbar({open, cartLength}) {
     const [input, setInput] = useState('');
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
     const Navigate = useNavigate();
 
-    const handleInput = function(e){
-        setInput(e.target.value)
+    const handleInput = async function(e){
+        setInput(e.target.value);
+        if(input.length >= 3){
+            setLoading(true);
+            let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/buscadorNavbar/${input}`)
+            let response = promise.data;
+            setProducts(response);
+            setLoading(false);
+        } else {
+            setProducts([]);
+        } 
     }
     
     const handleWasap = function(e){
@@ -28,10 +41,26 @@ export default function Navbar({open, cartLength}) {
         <img className={s.petitLogo} src={Logo} alt='Petit Boutique Logo' onClick={()=> Navigate('/')}/>
         <div className={s.content}>
             <div className={s.search}>
-                <form className={s.form}>
+                <form className={s.form} onSubmit={()=> {if(input !== ''){Navigate(`/Search/${input}`)}}}>
                     <input className={s.input} onChange={handleInput} placeholder='Encontra lo que buscas...'/>
-                    <img className={s.lupa} src={Lupa} alt='Lupa' onClick={()=> Navigate(`/Search/${input.length > 1 ? input : 'Populares'}`)}/>
+                    <img className={s.lupa} src={Lupa} alt='Lupa' onClick={()=> {if(input !== ''){Navigate(`/Search/${input}`)}}}/>
                 </form>
+                {
+                    input.length > 3 && 
+                    <div className={s.browser} >
+                        <div className={s.browserMargin}/>
+                        {
+                            !loading ? 
+                            products[0]  ? 
+                            products?.map((p)=>{
+                                return <NavbarCard product={p} key={p.id}/>
+                            }) : 
+                            <NavbarCard product={{ nombre: 'No se encontraron resultados', imagen: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8zwQAAgYBAyKDV6YAAAAASUVORK5CYII='}} />:
+                            <NavbarCard product={{ nombre: 'Buscando...', imagen: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8zwQAAgYBAyKDV6YAAAAASUVORK5CYII='}} />
+                        }
+                    </div>
+                }
+
                 <div className={s.categories}>
                     <button className={s.category} onClick={()=> Navigate('/Search/Remeras')}>Remeras</button>
                     <button className={s.category} onClick={()=> Navigate('/Search/Pantalones')}>Pantalones</button>
