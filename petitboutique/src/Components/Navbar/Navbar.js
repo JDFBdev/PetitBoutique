@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import s from './Navbar.module.css';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../img/Petit Boutique.png';
@@ -41,9 +41,9 @@ export default function Navbar({open, cartLength}) {
         <img className={s.petitLogo} src={Logo} alt='Petit Boutique Logo' onClick={()=> Navigate('/')}/>
         <div className={s.content}>
             <div className={s.search}>
-                <form className={s.form} onSubmit={()=> {if(input !== ''){Navigate(`/Search/${input}`)}}}>
+                <form className={s.form} onSubmit={()=> {if(input !== '' && input > 2){Navigate(`/Search/${input}`)}}}>
                     <input className={s.input} onChange={handleInput} placeholder='Encontra lo que buscas...'/>
-                    <img className={s.lupa} src={Lupa} alt='Lupa' onClick={()=> {if(input !== ''){Navigate(`/Search/${input}`)}}}/>
+                    <img className={s.lupa} src={Lupa} alt='Lupa' onClick={()=> {if(input !== '' && input > 2){Navigate(`/Search/${input}`)}}}/>
                 </form>
                 {
                     input.length > 3 && 
