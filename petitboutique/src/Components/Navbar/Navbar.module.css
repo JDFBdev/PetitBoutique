@@ -45,7 +45,7 @@
 
     font-family: 'Quicksand';
     text-indent: 1rem;
-    z-index: 10000;
+    z-index: 1000;
 }
 
 .input::placeholder{
@@ -60,7 +60,7 @@
     margin-left: -2.3rem;
     margin-top: .5rem;
     cursor: pointer;
-    z-index: 10000;
+    z-index: 1000;
 }
 
 .browser{

@@ -1,16 +1,18 @@
 import React from "react";
 import s from './CartCard.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function CartCard({product, deleteItem, index}){
+    const Navigate = useNavigate();
 
     return(
         <div className={s.container}>
-            <div className={s.imgContainer}>
+            <div className={s.imgContainer} onClick={()=>{Navigate(`/Product/${product.id}`); window.location.reload();}}>
                 <img className={s.img} src={product.imagen[product.color]} alt='item img'/>
             </div>
             <div className={s.data}>
                 <div className={s.top}>
-                    <div className={s.titleContainer}>
+                    <div className={s.titleContainer} onClick={()=>{Navigate(`/Product/${product.id}`); window.location.reload();}}>
                         <p className={s.title}>{product.nombre}</p>
                     </div>
                     <button className={s.btnDelete} onClick={()=>{deleteItem(index)}}>X</button>
