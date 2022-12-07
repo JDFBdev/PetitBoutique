@@ -22,6 +22,9 @@ router.use('/buscador', buscador);
 const buscadorNavbar = require('./buscadorNavbar');
 router.use('/buscadorNavbar', buscadorNavbar);
 
+const buscadorProto = require('./buscadorProto');
+router.use('/buscadorProto', buscadorProto);
+
 /* GET home page. */
 router.get('/', (req, res) => {
   res.status(200).send(`hello world`);
