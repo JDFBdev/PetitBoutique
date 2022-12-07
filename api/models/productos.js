@@ -35,6 +35,9 @@ const Productos = db.define('productos', {
   categoria: {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: false
+  },
+  vector: {
+    type: DataTypes.TSVECTOR
   }
 })
 
