@@ -27,8 +27,8 @@ export default function ProductPage(){
     useEffect(()=>{  // Obtengo data de productos
         window.scrollTo(0, 0);
         async function fetchData() {
-            let promise1 = axios.get(`https://petitboutique-backend.herokuapp.com/buscarProducto/${param}`);
-            let promise2 = axios.get(`https://petitboutique-backend.herokuapp.com/todosProductos`);
+            let promise1 = axios.get(`https://petit-boutique-backend.onrender.com/buscarProducto/${param}`);
+            let promise2 = axios.get(`https://petit-boutique-backend.onrender.com/todosProductos`);
 
             Promise.all([promise1, promise2]).then(values=>{
                 setProduct(values[0].data);

@@ -25,7 +25,7 @@ export default function Search(){
         window.scrollTo(0, 0);
         async function fetchData() {
             setLoading(true);
-            let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/buscador/${param}`)
+            let promise = await axios.get(`https://petit-boutique-backend.onrender.com/buscador/${param}`)
             let response = promise.data;
             setProducts(response);
             setLoading(false);
@@ -45,7 +45,7 @@ export default function Search(){
         window.scrollTo(0, 0);
         async function fetchData() {
             setLoading(true);
-            let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/buscador/${param}`)
+            let promise = await axios.get(`https://petit-boutique-backend.onrender.com/buscador/${param}`)
             let response = promise.data;
             setProducts(response);
             setLoading(false);

@@ -33,7 +33,7 @@ export default function Admin(){
     useEffect(()=>{  // Obtengo data de productos
         window.scrollTo(0, 0);
         async function fetchData() {
-            let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/todosProductos`)
+            let promise = await axios.get(`https://petit-boutique-backend.onrender.com/todosProductos`)
             let response = promise.data;
             setProducts(response);
         }
@@ -151,7 +151,7 @@ export default function Admin(){
     },[url]);
 
     const hanldeSubmit = async function(url){  // Posteamos el producto
-        let promise = await axios.post(`https://petitboutique-backend.herokuapp.com/crearProducto`,{
+        let promise = await axios.post(`https://petit-boutique-backend.onrender.com/crearProducto`,{
             nombre: input.title,
             imagen: url,
             precio: input.precio,
@@ -185,7 +185,7 @@ export default function Admin(){
         e.preventDefault();
         openLoading();
 
-        let promise = await axios.post(`https://petitboutique-backend.herokuapp.com/editarProducto`,{
+        let promise = await axios.post(`https://petit-boutique-backend.onrender.com/editarProducto`,{
             nombre: selected.nombre,
             imagen: selected.imagen,
             precio: selected.precio,
@@ -213,7 +213,7 @@ export default function Admin(){
     const handleDelete = async function(e){  // Borramos el producto
         e.preventDefault();
         openLoading();
-        let promise = await axios.post(`https://petitboutique-backend.herokuapp.com/borrarProducto`,{
+        let promise = await axios.post(`https://petit-boutique-backend.onrender.com/borrarProducto`,{
             id: selected.id
         })
         let response = promise.data;

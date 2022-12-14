@@ -11,18 +11,18 @@ export default function Card({product, disableCart, setCartLength}){
 
     useEffect(()=>{
 
-        // let images = [];
-        // product.imagen.forEach(async p =>{
-        //     const response = await fetch(p)
-        //     const blob = await response.blob()
+        let images = [];
+        product.imagen.forEach(async p =>{
+            const response = await fetch(p)
+            const blob = await response.blob()
           
-        //     const url = URL.createObjectURL(blob.slice(0, 4000))
+            const url = URL.createObjectURL(blob.slice(0, 4000))
           
-        //     const image = new Image()
-        //     image.src = url
-        //     images.push(image);
-        // })
-        // setImagenes(images);
+            const image = new Image();
+            image.src = url;
+            images.push(image);
+        })
+        setImagenes(images);
 
         //TODO Habilitar CORS en firebase storage
 
