@@ -20,7 +20,7 @@ export default function Navbar({open, cartLength}) {
         setInput(e.target.value);
         if(input.length >= 3){
             setLoading(true);
-            let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/buscadorNavbar/${input}`)
+            let promise = await axios.get(`https://petit-boutique-backend.onrender.com/buscadorNavbar/${input}`)
             let response = promise.data;
             setProducts(response);
             setLoading(false);

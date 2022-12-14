@@ -37,7 +37,7 @@ export default function Home() {
   useEffect(()=>{  // Obtengo data de productos
     window.scrollTo(0, 0);
     async function fetchData() {
-      let promise = await axios.get(`https://petitboutique-backend.herokuapp.com/todosProductos`)
+      let promise = await axios.get(`https://petit-boutique-backend.onrender.com/todosProductos`)
       let response = promise.data;
       setProducts(response);
     }
